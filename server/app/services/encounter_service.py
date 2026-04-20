@@ -2,6 +2,8 @@ from ..extensions import db
 from ..models.combatant import Combatant
 from ..models.encounter import Encounter
 
+#Services for setting up and handling each encounter
+
 def create_encounter(name: str):
     encounter = Encounter(
         name = name,
