@@ -16,6 +16,8 @@ def create_encounter(name: str):
 
     return encounter
 
+
+
 def create_combatant(
         encounter_id: int,
         name: str,
@@ -37,21 +39,39 @@ def create_combatant(
     
     db.session.add(combatant)
     db.session.commit()
+
+    return combatant
     
+
+
 def remove_combatant(id: int):
-    combatant = db.session.query(Combatant).filter(Combatant.id == id)
+    combatant = get_combatant(id)
+
+    if not combatant:
+        raise ValueError("Combatant not found")
+    
     db.session.delete(combatant)
     db.session.commit()
 
+
+
 def remove_encounter(id: int):
-    encounter = db.session.query(Encounter).filter(Encounter.id == id)
+    encounter = get_encounter(id)
+
+    if not encounter:
+        raise ValueError("Encounter not found")
+    
     db.session.delete(encounter)
     db.session.commit()
 
+
+
 def get_encounter(id: int):
-    encounter = db.session.query(Encounter).filter(Encounter.id == id)
+    encounter = db.session.query(Encounter).filter(Encounter.id == id).first()
     return encounter
 
+
+
 def get_combatant(id: int):
-    combatant = db.session.query(Combatant).filter(Combatant.id == id)
+    combatant = db.session.query(Combatant).filter(Combatant.id == id).first()
     return combatant
