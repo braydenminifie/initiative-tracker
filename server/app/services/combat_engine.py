@@ -10,12 +10,16 @@ def get_sorted_combatants(encounter_id):
         .all()
     )
 
+
+
 def get_active_combatant(encounter, combatants):
     if not combatants:
         return None
 
     index = encounter.current_turn_index
     return combatants[index]
+
+
 
 #Advances turn
 def next_turn(encounter):
@@ -42,6 +46,8 @@ def next_turn(encounter):
         "current_turn_index": encounter.current_turn_index,
         "active_combatant": alive[encounter.current_turn_index].name
     }
+
+
 
 def next_round(encounter):
     encounter.current_round += 1

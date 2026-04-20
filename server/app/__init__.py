@@ -1,12 +1,10 @@
 from flask import Flask
 from .extensions import db, migrate, cors
 
-def create_app():
+def create_app(config_class="app.config.Config"):
     app = Flask(__name__)
+    app.config.from_object(config_class)
 
-    #App configurations
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///initiative.db"
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     #Initialize extensions
     db.init_app(app)
