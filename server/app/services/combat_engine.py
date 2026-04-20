@@ -1,4 +1,6 @@
 from ..models.combatant import Combatant
+from ..extensions import db
+from .condition_service import decrement_condition_durations
 
 #Services for handling the core gameplay loop
 
@@ -15,8 +17,6 @@ def get_active_combatant(encounter, combatants):
     index = encounter.current_turn_index
     return combatants[index]
 
-from ..extensions import db
-
 #Advances turn
 def next_turn(encounter):
     combatants = get_sorted_combatants(encounter.id)
@@ -30,7 +30,7 @@ def next_turn(encounter):
     #Check if end of round
     if encounter.current_turn_index >= len(alive):
         next_round(encounter)
-        #TODO: Call tick conditions function once implemented
+        decrement_condition_durations(encounter)
 
     else:
         encounter.current_turn_index += 1
