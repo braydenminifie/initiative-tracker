@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from ..services.encounter_service import create_combatant
+from ..services.encounter_service import create_combatant, get_combatant, remove_combatant, set_combatant_health
 
 combatant_bp = Blueprint("combatants", __name__)
 
@@ -20,3 +20,54 @@ def create_combatant_route():
         "id": combatant.id,
         "name": combatant.name
     }), 201
+
+
+
+@combatant_bp.route("/<int:id>", methods=["GET"])
+def get_combatant_route(id):
+    combatant = get_combatant(id)
+
+    if not combatant:
+        return jsonify({"error": "Not found"}), 404
+
+    return jsonify({
+        "id": combatant.id,
+        "name": combatant.name,
+        "type": combatant.type,
+        "initiative": combatant.initiative,
+        "max_hp": combatant.max_hp,
+        "armour_class": combatant.armour_class,
+        "encounter_id": combatant.encounter_id
+    }), 200
+
+
+
+@combatant_bp.route("/<int:id>", methods=["DELETE"])
+def delete_combatant_route(id):
+    combatant = remove_combatant(id)
+
+    if not combatant:
+        return jsonify({"error": "Not found"}), 404
+
+    return jsonify({
+        "message": "Combatant deleted",
+        "id": id
+    }), 200
+
+
+
+@combatant_bp.route("/<int:id>/health", methods=["PATCH"])
+def update_health_route(id):
+    data = request.get_json()
+    health = data.get("health")
+
+    combatant = set_combatant_health(id, health)
+
+    if not combatant:
+        return jsonify({"error": "Combatant not found"}), 404
+
+    return jsonify({
+        "id": combatant.id,
+        "name": combatant.name,
+        "hp": combatant.current_hp
+    })

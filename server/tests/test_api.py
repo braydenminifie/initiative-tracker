@@ -12,7 +12,7 @@ def test_create_encounter_success(client):
 
 
 
-def test_create_combatant_success(client):
+def test_create_combatant(client):
     #Create an encounter (foreign key dependency)
     encounter_response = client.post("/api/encounters", json={
         "name": "Goblin Fight"
@@ -38,8 +38,37 @@ def test_create_combatant_success(client):
 
 
 
+def test_get_combatant(client):
+    #Create an encounter (foreign key dependency)
+    encounter_response = client.post("/api/encounters", json={
+        "name": "Goblin Fight"
+    })
+    encounter_id = encounter_response.get_json()["id"]
 
-def test_next_turn_success(client, app):
+
+    #Create combatant
+    combatant = client.post("/api/combatants", json={
+        "encounter_id": encounter_id,
+        "name": "Goblin",
+        "type": "enemy",
+        "initiative": 15,
+        "max_hp": 20,
+        "armour_class": 14
+    })
+    data = combatant.get_json()
+    combatant_id = data["id"]
+
+    #Fetch combatant
+    response = response = client.get(f"/api/combatants/{combatant_id}")
+    assert response.status_code == 200
+
+    data = response.get_json()
+    assert data["name"] == "Goblin"
+    assert data["id"] == combatant_id
+
+
+
+def test_next_turn(client):
     #Create an encounter
     response = client.post("/api/encounters", json={
         "name": "Goblin Fight"
@@ -66,3 +95,63 @@ def test_next_turn_success(client, app):
     print(data)
     assert data is not None
     assert "round" in data or "current_turn_index" in data
+
+
+
+def test_delete_combatant(client):
+    #Create an encounter (foreign key dependency)
+    encounter_response = client.post("/api/encounters", json={
+        "name": "Goblin Fight"
+    })
+    encounter_id = encounter_response.get_json()["id"]
+
+
+    #Create combatant
+    combatant = client.post("/api/combatants", json={
+        "encounter_id": encounter_id,
+        "name": "Goblin",
+        "type": "Enemy",
+        "initiative": 15,
+        "max_hp": 20,
+        "armour_class": 14
+    })
+    data = combatant.get_json()
+    combatant_id = data["id"]
+
+    #Delete combatant
+    response = client.delete(f"/api/combatants/{combatant_id}")
+
+    assert response.status_code == 200
+    assert response.get_json()["message"] == "Combatant deleted"
+
+
+
+def test_update_combatant_health(client):
+    #Create encounter
+    encounter = client.post("/api/encounters", json={
+        "name": "Goblin Fight"
+    }).get_json()
+
+    #Create combatant
+    combatant = client.post("/api/combatants", json={
+        "encounter_id": encounter["id"],
+        "name": "Goblin",
+        "type": "Enemy",
+        "initiative": 10,
+        "max_hp": 20,
+        "armour_class": 12
+    }).get_json()
+
+    combatant_id = combatant["id"]
+
+    #Update health
+    response = client.patch(f"/api/combatants/{combatant_id}/health", json={
+        "health": 15
+    })
+
+    assert response.status_code == 200
+
+    data = response.get_json()
+    assert data["id"] == combatant_id
+    assert data["name"] == "Goblin"
+    assert data["hp"] == 15

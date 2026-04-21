@@ -54,6 +54,8 @@ def remove_combatant(id: int):
     db.session.delete(combatant)
     db.session.commit()
 
+    return combatant
+
 
 
 def remove_encounter(id: int):
