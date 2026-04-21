@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from ..services.encounter_service import create_combatant, get_combatant, remove_combatant, set_combatant_health
+from ..services.condition_service import apply_condition
 
 combatant_bp = Blueprint("combatants", __name__)
 
@@ -71,3 +72,23 @@ def update_health_route(id):
         "name": combatant.name,
         "hp": combatant.current_hp
     })
+
+
+
+@combatant_bp.route("/<int:combatant_id>/apply-condition", methods=["POST"])
+def apply_condition_route(combatant_id):
+    data = request.get_json()
+
+    combatant_condition = apply_condition(
+        combatant_id=combatant_id,
+        condition_id=data["condition_id"],
+        current_round=data["current_round"],
+        current_turn=data["current_turn"],
+        duration_turns=data["duration"]
+    )
+
+    return jsonify({
+        "id": combatant_condition.id,
+        "combatant_id": combatant_condition.combatant_id,
+        "condition_id": combatant_condition.condition_id
+    }), 201

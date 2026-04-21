@@ -14,7 +14,9 @@ def create_app(config_class="app.config.Config"):
     #Register blueprints
     from .routes.encounter_routes import encounter_bp
     from .routes.combatant_routes import combatant_bp
+    from .routes.condition_routes import condition_bp
     app.register_blueprint(encounter_bp, url_prefix="/api/encounters")
     app.register_blueprint(combatant_bp, url_prefix="/api/combatants")
+    app.register_blueprint(condition_bp, url_prefix="/api/conditions")
 
     return app
