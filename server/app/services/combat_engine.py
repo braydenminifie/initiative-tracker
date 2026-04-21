@@ -27,7 +27,7 @@ def next_turn(encounter):
 
     #Move to the next turn 
     encounter.total_turns_elapsed += 1
-    if encounter.current_turn_index >= len(alive):
+    if encounter.current_turn_index + 1 >= len(alive):
         next_round(encounter)
 
     else:
