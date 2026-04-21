@@ -1,7 +1,7 @@
 from ..models.combatant_condition import CombatantCondition
 from ..models.condition import Condition
 from ..extensions import db
-from .combat_engine import get_sorted_combatants
+from .engine_utils import get_sorted_combatants
 
 #Services for handling conditions
 
@@ -50,10 +50,7 @@ def delete_condition(id):
     else:
         db.session.delete(condition)
         db.session.commit()
-        return {
-                "condition_id": id,
-                "deleted": True
-            }
+        return True
 
 
 
@@ -103,11 +100,7 @@ def remove_condition_from_combatant(combatant_id, condition_id):
     else:
         db.session.delete(condition)
         db.session.commit()
-        return {
-            "combatant_id": combatant_id,
-            "condition_id": condition_id,
-            "deleted": True
-        }
+        return True
 
 
 
@@ -119,6 +112,7 @@ def update_combatant_condition_duration(combatant_id, condition_id, duration_tur
     
     cc.duration_turns = duration_turns
     db.session.commit()
+    return cc
 
 
 

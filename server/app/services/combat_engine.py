@@ -1,14 +1,9 @@
 from ..models.combatant import Combatant
 from ..extensions import db
 from .condition_service import decrement_condition_durations
+from .engine_utils import get_sorted_combatants
 
 #Services for handling the core gameplay loop
-
-def get_sorted_combatants(encounter_id):
-    return (Combatant.query.filter_by(encounter_id=encounter_id)
-        .order_by(Combatant.initiative.desc())
-        .all()
-    )
 
 
 
@@ -34,13 +29,12 @@ def next_turn(encounter):
     #Check if end of round
     if encounter.current_turn_index >= len(alive):
         next_round(encounter)
-        decrement_condition_durations(encounter)
 
     else:
         encounter.current_turn_index += 1
         db.session.commit()
 
-    
+    decrement_condition_durations(encounter)
     return {
         "current_round": encounter.current_round,
         "current_turn_index": encounter.current_turn_index,
