@@ -58,7 +58,7 @@ def apply_condition(
     combatant_id,
     condition_id,
     current_round,
-    current_turn_index,
+    current_turn,
     duration_turns=None
 ):
     #If the condition already exists on the combatant, refresh the condition timing
@@ -67,7 +67,7 @@ def apply_condition(
     if existing:
         existing.duration_turns = duration_turns
         existing.applied_round = current_round
-        existing.applied_turn_index = current_turn_index
+        existing.applied_turn = current_turn
 
         db.session.commit()
         return existing
@@ -79,7 +79,7 @@ def apply_condition(
             condition_id=condition_id,
             duration_turns=duration_turns,
             applied_round=current_round,
-            applied_turn_index=current_turn_index,
+            applied_turn=current_turn,
             is_active=True
         )
 
@@ -120,14 +120,9 @@ def update_combatant_condition_duration(combatant_id, condition_id, duration_tur
 #Expires combatant conditions based on turn progression
 def decrement_condition_durations(encounter):
     conditions = CombatantCondition.query.filter_by(is_active=True).all()
-    total_combatants = len(get_sorted_combatants(encounter.id))
 
     for cc in conditions:
-        turns_passed = (
-            (encounter.current_round - cc.applied_round) * total_combatants
-            + (encounter.current_turn_index - cc.applied_turn_index)
-        )
-
+        turns_passed = encounter.total_turns_elapsed - cc.applied_turn + 1
         if turns_passed >= cc.duration_turns:
             cc.is_active = False
 

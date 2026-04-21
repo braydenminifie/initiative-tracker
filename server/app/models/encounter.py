@@ -8,5 +8,6 @@ class Encounter(db.Model):
     current_round = db.Column(db.Integer, default=1)
     current_turn_index = db.Column(db.Integer, default=0)
     is_active = db.Column(db.Boolean, default=True)
+    total_turns_elapsed = db.Column(db.Integer)
     
     combatants = db.relationship("Combatant", backref="encounter")

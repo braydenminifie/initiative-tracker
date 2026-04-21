@@ -11,6 +11,6 @@ class CombatantCondition(db.Model):
     duration_turns = db.Column(db.Integer, nullable=True)
 
     applied_round = db.Column(db.Integer, nullable=False)
-    applied_turn_index = db.Column(db.Integer, nullable=False)
+    applied_turn = db.Column(db.Integer, nullable=False)
 
     is_active = db.Column(db.Boolean, default=True)

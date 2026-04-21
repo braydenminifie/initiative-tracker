@@ -8,6 +8,7 @@ def test_create_encounter(app):
         assert encounter.current_round == 1
         assert encounter.current_turn_index == 0
         assert encounter.is_active == True
+        assert encounter.total_turns_elapsed == 0
 
 
 

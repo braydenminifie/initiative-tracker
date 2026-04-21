@@ -18,15 +18,15 @@ def get_active_combatant(encounter, combatants):
 
 #Advances turn
 def next_turn(encounter):
-    combatants = get_sorted_combatants(encounter.id)
 
-    #Skip dead combatants
+    #Skip if all combatants are dead
+    combatants = get_sorted_combatants(encounter.id)
     alive = [c for c in combatants if c.is_alive]
     if not alive:
         return {"status": "encounter_over"}
 
-
-    #Check if end of round
+    #Move to the next turn 
+    encounter.total_turns_elapsed += 1
     if encounter.current_turn_index >= len(alive):
         next_round(encounter)
 
@@ -34,12 +34,9 @@ def next_turn(encounter):
         encounter.current_turn_index += 1
         db.session.commit()
 
+    #Decrement all conditions by 1 turn
     decrement_condition_durations(encounter)
-    return {
-        "current_round": encounter.current_round,
-        "current_turn_index": encounter.current_turn_index,
-        "active_combatant": alive[encounter.current_turn_index].name
-    }
+    return encounter
 
 
 

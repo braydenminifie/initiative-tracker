@@ -9,7 +9,8 @@ def create_encounter(name: str):
         name = name,
         current_round = 1,
         current_turn_index = 0,
-        is_active = True)
+        is_active = True,
+        total_turns_elapsed = 0)
 
     db.session.add(encounter)
     db.session.commit()
