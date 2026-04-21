@@ -36,7 +36,11 @@ def next_turn(encounter):
 
     #Decrement all conditions by 1 turn
     decrement_condition_durations(encounter)
-    return encounter
+    return {
+        "id": encounter.id,
+        "round": encounter.current_round,
+        "current_turn_index": encounter.current_turn_index
+    }
 
 
 

@@ -15,7 +15,7 @@ def app():
 
 @pytest.fixture
 def client(app):
-    return app.test_client
+    return app.test_client()
 
 @pytest.fixture
 def session(app):
