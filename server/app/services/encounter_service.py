@@ -76,3 +76,22 @@ def get_encounter(id: int):
 def get_combatant(id: int):
     combatant = db.session.query(Combatant).filter(Combatant.id == id).first()
     return combatant
+
+
+
+def set_combatant_health(id: int, health: int):
+    combatant = db.session.query(Combatant).filter(Combatant.id == id).first()
+
+    if not combatant:
+        return combatant
+
+    if health > combatant.max_hp:
+        combatant.current_hp = combatant.max_hp
+    elif health < 0:
+        combatant.current_hp = 0
+    else:
+        combatant.current_hp = health
+    
+    combatant.is_alive = combatant.current_hp > 0
+    db.session.commit()
+    return combatant

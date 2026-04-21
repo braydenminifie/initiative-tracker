@@ -92,3 +92,28 @@ def test_get_combatant(app):
 
         assert result.encounter_id == encounter.id
         assert result.id == combatant.id
+
+
+
+def test_set_combatant_health(app):
+    with app.app_context():
+        encounter = encounter_service.create_encounter("Test Encounter")
+        combatant = encounter_service.create_combatant(
+            encounter_id = encounter.id,
+            name = "Combatant One",
+            type = "Player",
+            initiative = 15,
+            max_hp = 28,
+            armour_class = 14
+        )
+
+        assert combatant.current_hp == 28
+        encounter_service.set_combatant_health(combatant.id, 15)
+        assert combatant.current_hp == 15
+        encounter_service.set_combatant_health(combatant.id, -5)
+        assert combatant.current_hp == 0
+        assert combatant.is_alive == False
+        encounter_service.set_combatant_health(combatant.id, 200)
+        assert combatant.current_hp == 28
+        assert combatant.is_alive == True
+        
