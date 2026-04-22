@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from ..services.encounter_service import create_combatant, get_combatant, remove_combatant, set_combatant_health
-from ..services.condition_service import apply_condition
+from ..services.condition_service import apply_condition, get_combatant_conditions_by_combatant_id
 
 combatant_bp = Blueprint("combatants", __name__)
 
@@ -92,3 +92,25 @@ def apply_condition_route(combatant_id):
         "combatant_id": combatant_condition.combatant_id,
         "condition_id": combatant_condition.condition_id
     }), 201
+
+@combatant_bp.route("/<int:combatant_id>/conditions", methods=["GET"])
+def get_conditions_route(combatant_id):
+    conditions = get_combatant_conditions_by_combatant_id(combatant_id)
+    print(conditions)
+    print(conditions[0].condition)
+
+    if conditions is None:
+        return jsonify({"error": "Combatant not found"}), 404
+
+    return jsonify({
+        "combatant_id": combatant_id,
+        "conditions": [
+            {
+                "id": cc.id,
+                "name": cc.condition.name,
+                "description": cc.condition.description,
+                "duration": cc.duration_turns
+            }
+            for cc in conditions
+        ]
+    })

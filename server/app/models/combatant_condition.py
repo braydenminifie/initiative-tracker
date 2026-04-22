@@ -14,3 +14,5 @@ class CombatantCondition(db.Model):
     applied_turn = db.Column(db.Integer, nullable=False)
 
     is_active = db.Column(db.Boolean, default=True)
+
+    condition = db.relationship("Condition")

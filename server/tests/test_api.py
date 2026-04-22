@@ -194,6 +194,13 @@ def test_apply_condition(client):
 
     combatant_id = combatant["id"]
 
+    #Create condition
+    condition = client.post("/api/conditions", json={
+        "name": "Poisoned",
+        "description": "Loses health each turn",
+        "is_debuff": True
+    }).get_json()
+
     #Apply condition
     response = client.post(f"/api/combatants/{combatant_id}/apply-condition", json={
         "condition_id": 1,
@@ -209,3 +216,44 @@ def test_apply_condition(client):
     assert "id" in data
     assert data["combatant_id"] == combatant_id
     assert data["condition_id"] == 1
+
+
+
+def test_get_combatant_conditions(client):
+        #Create encounter
+    encounter = client.post("/api/encounters", json={
+        "name": "Goblin Fight"
+    }).get_json()
+
+    #Create combatant
+    combatant = client.post("/api/combatants", json={
+        "encounter_id": encounter["id"],
+        "name": "Goblin",
+        "type": "Enemy",
+        "initiative": 10,
+        "max_hp": 12,
+        "armour_class": 13
+    }).get_json()
+
+    combatant_id = combatant["id"]
+
+    #Create condition
+    condition = client.post("/api/conditions", json={
+        "name": "Poisoned",
+        "description": "Loses health each turn",
+        "is_debuff": True
+    }).get_json()
+
+    #Apply condition
+    cc = client.post(f"/api/combatants/{combatant_id}/apply-condition", json={
+        "condition_id": 1,
+        "current_round": 1,
+        "current_turn": 0,
+        "duration": 3
+    })
+
+    response = client.get(f"/api/combatants/{combatant_id}/conditions")
+    data = response.get_json()
+    conditions = data["conditions"][0]
+    assert response.status_code == 200
+    assert conditions["name"] == "Poisoned"
