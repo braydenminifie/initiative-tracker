@@ -15,3 +15,5 @@ class Combatant(db.Model):
     current_hp = db.Column(db.Integer)
     armour_class = db.Column(db.Integer)
     is_alive = db.Column(db.Boolean, default=True)
+
+    conditions = db.relationship("CombatantCondition", backref="combatant")

@@ -220,7 +220,7 @@ def test_apply_condition(client):
 
 
 def test_get_combatant_conditions(client):
-        #Create encounter
+    #Create encounter
     encounter = client.post("/api/encounters", json={
         "name": "Goblin Fight"
     }).get_json()
@@ -257,3 +257,56 @@ def test_get_combatant_conditions(client):
     conditions = data["conditions"][0]
     assert response.status_code == 200
     assert conditions["name"] == "Poisoned"
+
+
+
+def test_get_encounter_state(client):
+    #Create encounter
+    encounter = client.post("/api/encounters", json={
+        "name": "Test Encounter"
+    }).get_json()
+
+    encounter_id = encounter["id"]
+
+    #Create combatants
+    c1 = client.post("/api/combatants", json={
+        "encounter_id": encounter_id,
+         "name": "Hero",
+        "type": "Player",
+        "initiative": 15,
+        "max_hp": 20,
+        "armour_class": 15
+    }).get_json()
+
+    c2 = client.post("/api/combatants", json={
+        "encounter_id": encounter_id,
+        "name": "Goblin",
+        "type": "Enemy",
+        "initiative": 10,
+        "max_hp": 12,
+        "armour_class": 13
+    }).get_json()
+
+    #Call endpoint
+    response = client.get(f"/api/encounters/{encounter_id}/state")
+    data = response.get_json()
+
+    #Assertions
+    assert response.status_code == 200
+
+    assert data["encounter"]["id"] == encounter_id
+    assert data["encounter"]["name"] == "Test Encounter"
+    assert data["encounter"]["round"] == 1
+
+    assert len(data["combatants"]) == 2
+    names = [c["name"] for c in data["combatants"]]
+    assert "Hero" in names
+    assert "Goblin" in names
+
+    assert data["active_combatant_id"] is not None
+    active = next(
+        c for c in data["combatants"]
+        if c["id"] == data["active_combatant_id"]
+    )
+
+    assert active["is_active"] is True

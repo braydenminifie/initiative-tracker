@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from ..models.encounter import Encounter
 from ..extensions import db
-from ..services.encounter_service import create_encounter, get_encounter
+from ..services.encounter_service import create_encounter, get_encounter, get_encounter_state
 from ..services.combat_engine import next_turn
 
 encounter_bp = Blueprint("encounters", __name__)
@@ -36,3 +36,14 @@ def next_turn_route(id):
     result = next_turn(encounter)
 
     return jsonify(result)
+
+
+
+@encounter_bp.route("/<int:id>/state", methods=["GET"])
+def get_encounter_state_route(id):
+    state = get_encounter_state(id)
+
+    if not state:
+        return jsonify({"error": "Encounter not found"}), 404
+
+    return jsonify(state)

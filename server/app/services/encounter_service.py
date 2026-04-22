@@ -1,6 +1,8 @@
 from ..extensions import db
 from ..models.combatant import Combatant
 from ..models.encounter import Encounter
+from ..models.combatant_condition import CombatantCondition
+from ..services.engine_utils import get_sorted_combatants
 
 #Services for setting up and handling each encounter
 
@@ -97,3 +99,57 @@ def set_combatant_health(id: int, health: int):
     combatant.is_alive = combatant.current_hp > 0
     db.session.commit()
     return combatant
+
+
+
+#This large function returns the entire encounter state for the get_encounter_state_route
+def get_encounter_state(encounter_id):
+    encounter = db.session.get(Encounter, encounter_id)
+    if not encounter:
+        return None
+
+    combatants = get_sorted_combatants(encounter_id)
+    alive = [c for c in combatants if c.is_alive]
+    active = None
+    if alive:
+        index = encounter.current_turn_index % len(alive)
+        active = alive[index]
+
+    combatant_list = []
+    for c in combatants:
+        combatant_conditions = CombatantCondition.query.filter_by(
+            combatant_id=c.id,
+            is_active=True
+        ).all()
+
+        combatant_list.append({
+            "id": c.id,
+            "name": c.name,
+            "hp": c.current_hp,
+            "max_hp": c.max_hp,
+            "is_alive": c.is_alive,
+            "initiative": c.initiative,
+            "armour_class": c.armour_class,
+            "is_active": active and c.id == active.id,
+
+            "conditions": [
+                {
+                    "id": cc.id,
+                    "name": cc.condition.name,
+                    "duration": cc.duration_turns
+                }
+                for cc in combatant_conditions
+            ]
+        })
+
+    return {
+        "encounter": {
+            "id": encounter.id,
+            "name": encounter.name,
+            "round": encounter.current_round,
+            "turn_index": encounter.current_turn_index,
+            "is_active": encounter.is_active
+        },
+        "active_combatant_id": active.id if active else None,
+        "combatants": combatant_list
+    }
