@@ -21,7 +21,8 @@ def test_create_combatant(app):
             type = "Player",
             initiative = 15,
             max_hp = 28,
-            armour_class = 14
+            armour_class = 14,
+            image = "link"
         )
 
         assert combatant.name == "Combatant One"
@@ -38,7 +39,8 @@ def test_remove_combatant(app):
             type = "Player",
             initiative = 15,
             max_hp = 28,
-            armour_class = 14
+            armour_class = 14,
+            image = "link"
         )
 
         assert combatant.id is not None
@@ -83,7 +85,8 @@ def test_get_combatant(app):
             type = "Player",
             initiative = 15,
             max_hp = 28,
-            armour_class = 14
+            armour_class = 14,
+            image = "link"
         )
 
         assert combatant.id is not None
@@ -104,7 +107,8 @@ def test_set_combatant_health(app):
             type = "Player",
             initiative = 15,
             max_hp = 28,
-            armour_class = 14
+            armour_class = 14,
+            image = "link"
         )
 
         assert combatant.current_hp == 28

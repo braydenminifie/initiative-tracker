@@ -15,5 +15,6 @@ class Combatant(db.Model):
     current_hp = db.Column(db.Integer)
     armour_class = db.Column(db.Integer)
     is_alive = db.Column(db.Boolean, default=True)
+    image = db.Column(db.String())
 
     conditions = db.relationship("CombatantCondition", backref="combatant")

@@ -28,7 +28,8 @@ def test_create_combatant(client):
         "type": "enemy",
         "initiative": 15,
         "max_hp": 20,
-        "armour_class": 14
+        "armour_class": 14,
+        "image": "link"
     })
     assert response.status_code == 201
 
@@ -53,7 +54,8 @@ def test_get_combatant(client):
         "type": "enemy",
         "initiative": 15,
         "max_hp": 20,
-        "armour_class": 14
+        "armour_class": 14,
+        "image": "link"
     })
     data = combatant.get_json()
     combatant_id = data["id"]
@@ -84,7 +86,8 @@ def test_next_turn(client):
         "type": "Player",
         "initiative": 15,
         "max_hp": 200,
-        "armour_class": 14
+        "armour_class": 14,
+        "image": "link"
     })
     assert response.status_code == 201
 
@@ -113,7 +116,8 @@ def test_delete_combatant(client):
         "type": "Enemy",
         "initiative": 15,
         "max_hp": 20,
-        "armour_class": 14
+        "armour_class": 14,
+        "image": "link"
     })
     data = combatant.get_json()
     combatant_id = data["id"]
@@ -139,7 +143,8 @@ def test_update_combatant_health(client):
         "type": "Enemy",
         "initiative": 10,
         "max_hp": 20,
-        "armour_class": 12
+        "armour_class": 12,
+        "image": "link"
     }).get_json()
 
     combatant_id = combatant["id"]
@@ -189,7 +194,8 @@ def test_apply_condition(client):
         "type": "Enemy",
         "initiative": 10,
         "max_hp": 12,
-        "armour_class": 13
+        "armour_class": 13,
+        "image": "link"
     }).get_json()
 
     combatant_id = combatant["id"]
@@ -232,7 +238,8 @@ def test_get_combatant_conditions(client):
         "type": "Enemy",
         "initiative": 10,
         "max_hp": 12,
-        "armour_class": 13
+        "armour_class": 13,
+        "image": "link"
     }).get_json()
 
     combatant_id = combatant["id"]
@@ -275,7 +282,8 @@ def test_get_encounter_state(client):
         "type": "Player",
         "initiative": 15,
         "max_hp": 20,
-        "armour_class": 15
+        "armour_class": 15,
+        "image": "link"
     }).get_json()
 
     c2 = client.post("/api/combatants", json={
@@ -284,7 +292,8 @@ def test_get_encounter_state(client):
         "type": "Enemy",
         "initiative": 10,
         "max_hp": 12,
-        "armour_class": 13
+        "armour_class": 13,
+        "image": "link"
     }).get_json()
 
     #Call endpoint

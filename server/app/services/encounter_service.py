@@ -27,7 +27,8 @@ def create_combatant(
         type: str,
         initiative: int,
         max_hp: int,
-        armour_class: int
+        armour_class: int,
+        image: str
         ):
     combatant = Combatant(
         encounter_id = encounter_id,
@@ -37,7 +38,8 @@ def create_combatant(
         max_hp = max_hp,
         current_hp = max_hp,
         armour_class = armour_class,
-        is_alive = True
+        is_alive = True,
+        image = image
     )
     
     db.session.add(combatant)
@@ -130,6 +132,7 @@ def get_encounter_state(encounter_id):
             "is_alive": c.is_alive,
             "initiative": c.initiative,
             "armour_class": c.armour_class,
+            "image": c.image,
             "is_active": active and c.id == active.id,
 
             "conditions": [

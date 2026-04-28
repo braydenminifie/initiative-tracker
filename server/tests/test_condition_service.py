@@ -23,7 +23,8 @@ def test_apply_condition(app):
             type = "Player",
             initiative = 15,
             max_hp = 28,
-            armour_class = 14
+            armour_class = 14,
+            image = "link"
         )
 
         #Testing application of condition
@@ -64,7 +65,8 @@ def test_update_combatant_condition_duration(app):
             type = "Player",
             initiative = 15,
             max_hp = 28,
-            armour_class = 14
+            armour_class = 14,
+            image = "link"
         )
 
         combat_condition = condition_service.apply_condition(
@@ -93,7 +95,8 @@ def test_decrement_condition_durations(app):
             type = "Player",
             initiative = 15,
             max_hp = 28,
-            armour_class = 14
+            armour_class = 14,
+            image = "link"
         )
         combatant2 = encounter_service.create_combatant(
             encounter_id = encounter.id,
@@ -101,7 +104,8 @@ def test_decrement_condition_durations(app):
             type = "Monster",
             initiative = 12,
             max_hp = 40,
-            armour_class = 11
+            armour_class = 11,
+            image = "link"
         )
 
         combat_condition1 = condition_service.apply_condition(

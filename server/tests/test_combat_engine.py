@@ -11,7 +11,8 @@ def test_next_turn(app):
             type = "Player",
             initiative = 15,
             max_hp = 28,
-            armour_class = 14
+            armour_class = 14,
+            image = "link"
         )
         combatant2 = encounter_service.create_combatant(
             encounter_id = encounter.id,
@@ -19,7 +20,8 @@ def test_next_turn(app):
             type = "Monster",
             initiative = 12,
             max_hp = 40,
-            armour_class = 11
+            armour_class = 11,
+            image = "link"
         )
 
         assert encounter.current_round == 1
@@ -40,7 +42,8 @@ def test_get_active_combatant(app):
             type = "Player",
             initiative = 15,
             max_hp = 28,
-            armour_class = 14
+            armour_class = 14,
+            image = "link"
         )
         combatant2 = encounter_service.create_combatant(
             encounter_id = encounter.id,
@@ -48,7 +51,8 @@ def test_get_active_combatant(app):
             type = "Monster",
             initiative = 12,
             max_hp = 40,
-            armour_class = 11
+            armour_class = 11,
+            image = "link"
         )
 
         combatants = engine_utils.get_sorted_combatants(encounter.id)
@@ -65,7 +69,8 @@ def test_get_sorted_combatants(app):
             type = "Player",
             initiative = 15,
             max_hp = 28,
-            armour_class = 14
+            armour_class = 14,
+            image = "link"
         )
         combatant2 = encounter_service.create_combatant(
             encounter_id = encounter.id,
@@ -73,7 +78,8 @@ def test_get_sorted_combatants(app):
             type = "Monster",
             initiative = 12,
             max_hp = 40,
-            armour_class = 11
+            armour_class = 11,
+            image = "link"
         )
         combatant3 = encounter_service.create_combatant(
             encounter_id = encounter.id,
@@ -81,7 +87,8 @@ def test_get_sorted_combatants(app):
             type = "Monster",
             initiative = 20,
             max_hp = 30,
-            armour_class = 11
+            armour_class = 11,
+            image = "link"
         )
 
         combatants = engine_utils.get_sorted_combatants(encounter.id)

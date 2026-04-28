@@ -14,7 +14,8 @@ def create_combatant_route():
         type=data["type"],
         initiative=data["initiative"],
         max_hp = data["max_hp"],
-        armour_class = data["armour_class"]
+        armour_class = data["armour_class"],
+        image=data["image"],
     )
 
     return jsonify({
@@ -38,7 +39,8 @@ def get_combatant_route(id):
         "initiative": combatant.initiative,
         "max_hp": combatant.max_hp,
         "armour_class": combatant.armour_class,
-        "encounter_id": combatant.encounter_id
+        "encounter_id": combatant.encounter_id,
+        "image": combatant.image
     }), 200
 
 
