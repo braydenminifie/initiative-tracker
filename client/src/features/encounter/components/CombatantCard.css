@@ -1,0 +1,64 @@
+.combatant-card {
+  display: flex;
+  gap: 12px;
+
+  background-color: #2B2C37;
+  color: #f3f3f3;
+
+  padding: 12px;
+  border-radius: 10px;
+
+  width: 100%;
+  height: 140px;
+  box-sizing: border-box;
+}
+
+.combatant-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.combatant-card__image {
+  height: 100%;       
+  aspect-ratio: 1;    
+  flex-shrink: 0;     
+}
+
+.combatant-card__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 10px;
+}
+
+.combatant-card__title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.combatant-card__subtitle {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+
+.combatant-card__stats {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.combatant-card__stats div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.combatant-card__buttons {
+  display: flex;
+  gap: 6px;
+}
