@@ -15,6 +15,7 @@ function App() {
     name: "piwakawaka",
     type: "Monster",
     hp: 7,
+    max_hp: 7,
     initiative: 12,
     ac: 13,
     image: piwakawaka
@@ -24,6 +25,7 @@ function App() {
     name: "kereru",
     type: "Monster",
     hp: 20,
+    max_hp: 20,
     initiative: 18,
     ac: 12,
     image: kereru
@@ -33,6 +35,7 @@ function App() {
     name: "kereru",
     type: "Monster",
     hp: 20,
+    max_hp: 20,
     initiative: 18,
     ac: 12,
     image: kereru
@@ -42,6 +45,7 @@ function App() {
     name: "kereru",
     type: "Monster",
     hp: 20,
+    max_hp: 20,
     initiative: 18,
     ac: 12,
     image: kereru
@@ -51,6 +55,7 @@ function App() {
     name: "kereru",
     type: "Monster",
     hp: 20,
+    max_hp: 20,
     initiative: 18,
     ac: 12,
     image: kereru

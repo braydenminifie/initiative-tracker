@@ -2,7 +2,7 @@ import React from "react";
 import "./CombatantCard.css";
 import Button from "./Button"
 
-const CombatantCard = ({ combatant }) => {
+const CombatantCard = ({ combatant, onOpenModal }) => {
   return (
     <div className="combatant-card">
       
@@ -22,7 +22,7 @@ const CombatantCard = ({ combatant }) => {
         <div className="combatant-card__stats">
           <div>
             <span>HP</span>
-            <strong>{combatant.hp}</strong>
+            <strong>{combatant.hp} / {combatant.max_hp}</strong>
           </div>
 
           <div>
@@ -37,9 +37,10 @@ const CombatantCard = ({ combatant }) => {
         </div>
 
         <div className="combatant-card__buttons">
-          <Button children={"Damage"}/>
-          <Button children={"Heal"}/>
-          <Button children={"Conditions"}/>
+          <Button> Damage </Button>
+          <Button onClick = {() => {onOpenModal("heal", combatant);
+          }}> Heal </Button>
+          <Button> Conditions </Button>
         </div>
 
       </div>

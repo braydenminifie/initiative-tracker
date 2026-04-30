@@ -3,7 +3,7 @@ import "./Header.css"
 
 const HeaderButton = ({label, onClick}) => {
   return (<button onClick = {onClick}
-            class = "header-button">
+            className = "header-button">
         {label}
         </button>
     );
