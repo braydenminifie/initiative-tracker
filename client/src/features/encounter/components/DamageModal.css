@@ -1,0 +1,53 @@
+.damage-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.damage-modal__image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.damage-modal__name {
+  margin: 0;
+}
+
+.damage-modal__hp {
+  margin: 0;
+  opacity: 0.8;
+}
+
+.damage-modal__input {
+  padding: 8px;
+  width: 100%;
+  max-width: 200px;
+
+  border-radius: 6px;
+  border: none;
+
+  text-align: center;
+}
+
+.damage-modal__actions {
+  display: flex;
+  gap: 10px;
+}
+
+.damage-modal__button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+
+  background-color: #4A4C5A;
+  color: white;
+}
+
+.damage-modal__button:hover {
+  background-color: #5a5c6b;
+}

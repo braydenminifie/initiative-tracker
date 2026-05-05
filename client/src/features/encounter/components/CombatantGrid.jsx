@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import CombatantCard from "./CombatantCard";
-import HealModal from "./HealModal"
+import HealModal from "./HealModal";
+import DamageModal from "./DamageModal";
 import "./CombatantGrid.css";
 
 
@@ -32,6 +33,13 @@ const CombatantGrid = ({ combatants = [] }) => {
       {/* Checks for rendering modal */}
       {activeModal?.type === "heal" && (
         <HealModal
+          combatant={activeModal.combatant}
+          onClose={closeModal}
+        />
+      )}
+
+      {activeModal?.type === "damage" && (
+        <DamageModal
           combatant={activeModal.combatant}
           onClose={closeModal}
         />

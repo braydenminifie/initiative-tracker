@@ -9,6 +9,7 @@ const HealModal = ({ combatant, onClose }) => {
         onClick={(e) => e.stopPropagation()}
       >
 
+        <h1>Heal!</h1>
         <img
           src={combatant.image}
           alt={combatant.name}

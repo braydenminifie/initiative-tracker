@@ -37,9 +37,12 @@ const CombatantCard = ({ combatant, onOpenModal }) => {
         </div>
 
         <div className="combatant-card__buttons">
-          <Button> Damage </Button>
+          <Button onClick = {() => {onOpenModal("damage", combatant);
+          }}> Damage </Button>
+
           <Button onClick = {() => {onOpenModal("heal", combatant);
           }}> Heal </Button>
+
           <Button> Conditions </Button>
         </div>
 
