@@ -1,0 +1,85 @@
+.conditions-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Header */
+.conditions-modal__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.conditions-modal__image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.conditions-modal__name {
+  margin: 0;
+}
+
+/* List */
+.conditions-modal__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+/* Each condition */
+.conditions-modal__item {
+  background-color: #3A3B47;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Top row */
+.conditions-modal__item-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.conditions-modal__item-name {
+  font-weight: bold;
+}
+
+.conditions-modal__item-duration {
+  opacity: 0.7;
+}
+
+/* Description */
+.conditions-modal__item-description {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* Empty state */
+.conditions-modal__empty {
+  text-align: center;
+  opacity: 0.6;
+}
+
+/* Close button */
+.conditions-modal__close {
+  align-self: center;
+  padding: 8px 14px;
+
+  border: none;
+  border-radius: 6px;
+
+  background-color: #4A4C5A;
+  color: white;
+  cursor: pointer;
+}
+
+.conditions-modal__close:hover {
+  background-color: #5a5c6b;
+}

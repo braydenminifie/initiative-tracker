@@ -1,0 +1,71 @@
+import "./ConditionsModal.css";
+
+const ConditionsModal = ({ combatant, onClose }) => {
+  return (
+    <div className="modal" onClick={onClose}>
+      <div
+        className="modal__content conditions-modal"
+        onClick={(e) => e.stopPropagation()}
+      >
+
+
+        {/* Header */}
+        <div className="conditions-modal__header">
+          <img
+            src={combatant.image}
+            alt={combatant.name}
+            className="conditions-modal__image"
+          />
+
+          <h2 className="conditions-modal__name">
+            {combatant.name}
+          </h2>
+        </div>
+
+
+
+        {/* Conditions List */}
+        {/* If combatant has no conditions, shows "No active conditions" instead of a list */}
+        <div className="conditions-modal__list">
+          {combatant.conditions && combatant.conditions.length > 0 ? (
+            combatant.conditions.map((condition) => (
+              <div
+                key={condition.id}
+                className="conditions-modal__item"
+              >
+                <div className="conditions-modal__item-header">
+                  <span className="conditions-modal__item-name">
+                    {condition.name}
+                  </span>
+                  <span className="conditions-modal__item-duration">
+                    {condition.duration} turns
+                  </span>
+                </div>
+
+                <p className="conditions-modal__item-description">
+                  {condition.description}
+                </p>
+              </div>
+            ))
+          ) : (
+            <p className="conditions-modal__empty">
+              No active conditions
+            </p>
+          )}
+        </div>
+
+
+
+        {/* Close Button */}
+        <button
+          className="conditions-modal__close"
+          onClick={onClose}
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default ConditionsModal;
