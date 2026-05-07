@@ -4,7 +4,7 @@ import HealModal from "./HealModal";
 import DamageModal from "./DamageModal";
 import ConditionsModal from "./ConditionsModal";
 import CreateCombatantModal from "./CreateCombatantModal";
-import Button from "./Button";
+import Button from "../../../components/Button";
 
 
 import "./CombatantGrid.css";
