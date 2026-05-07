@@ -1,8 +1,9 @@
 import Header from "../../../components/Header"
 import Hero from "../../../components/Hero"
-import bird1 from "../../../assets/bird1.JPG"
+import bird1 from "../../../assets/gecko.JPG"
 
 import EncountersGrid from "./EncountersGrid"
+import "./Encounters.css"
 
 function Encounters() {
     const encounters = [{
@@ -19,7 +20,7 @@ function Encounters() {
     
     return (
 
-    <>
+    <div className = "encounters-page">
       <Header />
       <Hero
         image={bird1}
@@ -28,7 +29,7 @@ function Encounters() {
         />
         <EncountersGrid encounters = {encounters}></EncountersGrid>
 
-    </>
+    </div>
   )
 }
 
