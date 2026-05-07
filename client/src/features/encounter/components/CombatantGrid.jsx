@@ -3,7 +3,10 @@ import CombatantCard from "./CombatantCard";
 import HealModal from "./HealModal";
 import DamageModal from "./DamageModal";
 import ConditionsModal from "./ConditionsModal";
+import CreateCombatantModal from "./CreateCombatantModal";
 import Button from "./Button";
+
+
 import "./CombatantGrid.css";
 
 
@@ -31,7 +34,10 @@ const CombatantGrid = ({ combatants = [] }) => {
         ))}
       </section>
 
-      <Button variant = "new_combatant">+</Button>
+      <Button variant = "new_combatant" 
+      onClick = {() => {openModal("combatant", null);}}>
+        +
+        </Button>
 
       {/* Checks for rendering modal */}
       {activeModal?.type === "heal" && (
@@ -51,6 +57,12 @@ const CombatantGrid = ({ combatants = [] }) => {
       {activeModal?.type === "conditions" && (
         <ConditionsModal
           combatant={activeModal.combatant}
+          onClose={closeModal}
+        />
+      )}
+
+      {activeModal?.type === "combatant" && (
+        <CreateCombatantModal
           onClose={closeModal}
         />
       )}

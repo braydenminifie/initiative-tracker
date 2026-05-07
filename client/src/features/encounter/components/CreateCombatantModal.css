@@ -1,0 +1,76 @@
+.create-combatant-modal {
+  width: 100%;
+  max-width: 420px;
+}
+
+.create-combatant-modal__title {
+  margin-top: 0;
+  margin-bottom: 20px;
+
+  text-align: center;
+}
+
+
+.create-combatant-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+
+.create-combatant-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.create-combatant-modal__field label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+
+.create-combatant-modal__field input, .create-combatant-modal__field select {
+  padding: 10px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #3A3B47;
+  color: white;
+
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+
+.create-combatant-modal__field input[type="file"] {
+  padding: 8px;
+  cursor: pointer;
+}
+
+
+.create-combatant-modal__actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+
+  margin-top: 10px;
+}
+
+.create-combatant-modal__actions button {
+  padding: 10px 16px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #4A4C5A;
+  color: white;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.create-combatant-modal__actions button:hover {
+  background-color: #5A5C6B;
+}
