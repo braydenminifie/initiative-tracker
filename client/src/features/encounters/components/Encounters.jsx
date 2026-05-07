@@ -1,8 +1,11 @@
+import { useState } from "react";
+
 import Header from "../../../components/Header"
 import Hero from "../../../components/Hero"
 import bird1 from "../../../assets/gecko.JPG"
 
 import EncountersGrid from "./EncountersGrid"
+import CreateEncounterModal from "./CreateEncounterModal";
 import Button from "../../../components/Button"
 import "./Encounters.css"
 
@@ -19,6 +22,8 @@ function Encounters() {
 
         }]
     
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
     return (
 
     <div className = "encounters-page">
@@ -31,9 +36,16 @@ function Encounters() {
         
         <EncountersGrid encounters = {encounters}></EncountersGrid>
         <Button variant = "new_encounter" 
-            onClick = {() => {openModal("combatant", null);}}>
+            onClick={() => setIsCreateModalOpen(true)}>
                 +
         </Button>
+
+
+        {isCreateModalOpen && (
+            <CreateEncounterModal
+                onClose={() => setIsCreateModalOpen(false)}
+            />
+        )}
     
     </div>
   )

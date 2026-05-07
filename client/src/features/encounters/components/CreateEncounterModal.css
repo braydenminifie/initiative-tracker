@@ -1,0 +1,77 @@
+.create-encounter-modal {
+  width: 100%;
+  max-width: 400px;
+
+  background-color: #233d2f;
+  border: 1px solid #3D6B52;
+
+  color: #f3f3f3;
+}
+
+.create-encounter-modal__title {
+  margin-top: 0;
+  margin-bottom: 20px;
+
+  text-align: center;
+}
+
+.create-encounter-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.create-encounter-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.create-encounter-modal__field label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.create-encounter-modal__field input {
+  padding: 10px 12px;
+
+  border: 1px solid #3D6B52;
+  border-radius: 8px;
+
+  background-color: #1c3126;
+  color: #f3f3f3;
+
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.create-encounter-modal__field input:focus {
+  outline: none;
+  border-color: #5a8a6c;
+}
+
+.create-encounter-modal__actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+
+  margin-top: 8px;
+}
+
+.create-encounter-modal__actions button {
+  padding: 10px 16px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #3D6B52;
+  color: white;
+
+  cursor: pointer;
+
+  transition: background-color 0.2s ease;
+}
+
+.create-encounter-modal__actions button:hover {
+  background-color: #4b8062;
+}
