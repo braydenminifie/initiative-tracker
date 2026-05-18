@@ -1,7 +1,12 @@
 import "./Encounter.css";
+import { Link } from "react-router-dom";
 
 const Encounter = ({ encounter }) => {
   return (
+    <Link
+      key = {encounter.id}
+      to={`/encounters/${encounter.id}`}
+      >
     <div className="encounter-card">
 
       <div className="encounter-card__content">
@@ -15,6 +20,7 @@ const Encounter = ({ encounter }) => {
       </div>
 
     </div>
+    </Link>
   );
 };
 
