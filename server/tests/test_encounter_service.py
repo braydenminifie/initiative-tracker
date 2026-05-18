@@ -73,8 +73,8 @@ def test_get_encounter(app):
 
         assert result.id == encounter.id
         assert result.name == "Test Encounter"
-
-
+        
+          
 
 def test_get_combatant(app):
     with app.app_context():

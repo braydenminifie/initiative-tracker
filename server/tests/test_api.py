@@ -12,6 +12,31 @@ def test_create_encounter_success(client):
 
 
 
+def test_get_all_encounters(client):
+    encounter_1 = client.post("/api/encounters", json={
+        "name": "Bird Fight"
+    })
+    assert encounter_1.status_code == 201
+    encounter_1_id = encounter_1.get_json()["id"]
+
+    encounter_2 = client.post("/api/encounters", json={
+        "name": "Armadillo Arena"
+    })
+    assert encounter_2.status_code == 201
+    encounter_2_id = encounter_2.get_json()["id"]
+
+
+    response = client.get("/api/encounters/")
+    assert response.status_code == 200
+    data = response.get_json()
+    encounter_ids = [encounter["id"] for encounter in data]
+
+
+    assert encounter_1_id in encounter_ids
+    assert encounter_2_id in encounter_ids
+
+
+
 def test_create_combatant(client):
     #Create an encounter (foreign key dependency)
     encounter_response = client.post("/api/encounters", json={

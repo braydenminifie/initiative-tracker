@@ -79,6 +79,12 @@ def get_encounter(id: int):
 
 
 
+def get_all_encounters():
+    encounters = db.session.query(Encounter).all()
+    return encounters
+
+
+
 def get_combatant(id: int):
     combatant = db.session.query(Combatant).filter(Combatant.id == id).first()
     return combatant

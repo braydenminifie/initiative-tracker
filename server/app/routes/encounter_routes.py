@@ -1,10 +1,26 @@
 from flask import Blueprint, jsonify, request
 from ..models.encounter import Encounter
 from ..extensions import db
-from ..services.encounter_service import create_encounter, get_encounter, get_encounter_state
+from ..services.encounter_service import create_encounter, get_encounter, get_encounter_state, get_all_encounters
 from ..services.combat_engine import next_turn
 
 encounter_bp = Blueprint("encounters", __name__)
+
+
+
+@encounter_bp.route("/", methods=["GET"])
+def get_all_encounters_route():
+    encounters = get_all_encounters()
+
+    return jsonify([
+        {
+            "id": encounter.id,
+            "name": encounter.name,
+            "round": encounter.current_round,
+            "turn": encounter.total_turns_elapsed
+        }
+        for encounter in encounters
+    ]), 200
 
 
 
