@@ -19,4 +19,7 @@ def create_app(config_class="app.config.Config"):
     app.register_blueprint(combatant_bp, url_prefix="/api/combatants")
     app.register_blueprint(condition_bp, url_prefix="/api/conditions")
 
+    with app.app_context():
+        db.create_all()
+
     return app
