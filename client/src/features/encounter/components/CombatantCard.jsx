@@ -2,13 +2,16 @@ import React from "react";
 import "./CombatantCard.css";
 import Button from "../../../components/Button"
 
+import kereru from "../assets/kereru.jpg"
+import piwakawaka from "../assets/piwakawaka.jpg"
+
 const CombatantCard = ({ combatant, onOpenModal }) => {
   return (
     <div className="combatant-card">
       
       {/*Left: Image*/}
       <div className="combatant-card__image">
-        <img src={combatant.image} alt={combatant.name} />
+        <img src={piwakawaka} alt={combatant.name} />
       </div>
 
       {/*Right: Content*/}
@@ -32,7 +35,7 @@ const CombatantCard = ({ combatant, onOpenModal }) => {
 
           <div>
             <span>AC</span>
-            <strong>{combatant.ac}</strong>
+            <strong>{combatant.armour_class}</strong>
           </div>
         </div>
 

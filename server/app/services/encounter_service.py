@@ -134,6 +134,7 @@ def get_encounter_state(encounter_id):
             "id": c.id,
             "name": c.name,
             "hp": c.current_hp,
+            "type": c.type,
             "max_hp": c.max_hp,
             "is_alive": c.is_alive,
             "initiative": c.initiative,
