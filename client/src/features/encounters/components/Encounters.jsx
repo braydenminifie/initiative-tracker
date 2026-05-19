@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Header from "../../../components/Header"
 import Hero from "../../../components/Hero"
@@ -10,22 +10,23 @@ import Button from "../../../components/Button"
 import "./Encounters.css"
 
 function Encounters() {
-    const encounters = [{
-            id: 1,
-            name: "Bird Battle!",
-            turnsPlayed: 2
-        },
-        {
-            id: 2,
-            name: "Armadillo Arena!",
-            turnsPlayed: 3
-
-        }]
-    
+    const [encounters, setEncounters] = useState([]);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
-    return (
+    useEffect(() => {
+        fetch("http://localhost:5000/api/encounters")
+        .then((res) => res.json())
+        .then((data) => {
+        setEncounters(data);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch encounters:", err);
+      });
+    }, []);
 
+
+
+    return (
     <div className = "encounters-page">
       <Header />
       <Hero

@@ -15,7 +15,7 @@ const Encounter = ({ encounter }) => {
         </h2>
 
         <p className="encounter-card__turns">
-          Turns Played: {encounter.turnsPlayed}
+          Turns Played: {encounter.turn}
         </p>
       </div>
 
