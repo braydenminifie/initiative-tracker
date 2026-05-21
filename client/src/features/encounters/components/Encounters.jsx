@@ -13,6 +13,11 @@ function Encounters() {
     const [encounters, setEncounters] = useState([]);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
+    //This function is passed to the CreateEncounterModal component
+    const handleEncounterCreated = (newEncounter) => {
+      setEncounters((prev => [...prev, newEncounter]));
+    };
+
     useEffect(() => {
         fetch("http://localhost:5000/api/encounters")
         .then((res) => res.json())
@@ -45,6 +50,7 @@ function Encounters() {
         {isCreateModalOpen && (
             <CreateEncounterModal
                 onClose={() => setIsCreateModalOpen(false)}
+                onEncounterCreated = {handleEncounterCreated}
             />
         )}
     

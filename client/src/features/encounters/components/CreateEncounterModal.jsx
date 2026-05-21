@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./CreateEncounterModal.css";
 
 
-const CreateEncounterModal = ({ onClose }) => {
+const CreateEncounterModal = ({ onClose, onEncounterCreated }) => {
   const [name, setName] = useState("");
 
   const handleSubmit = async (e) => {
@@ -25,9 +25,10 @@ const CreateEncounterModal = ({ onClose }) => {
         throw new Error(data.error || "Failed to create encounter");
       }
 
+      onEncounterCreated(data);
       onClose();
 
-      
+
     } catch (err) {
       console.error(err);
     }
