@@ -33,7 +33,7 @@ function Encounter() {
       <Header />
       <Hero
         image={bird1}
-        title={encounter.name}
+        title={encounter?.name || "Loading..."}
         subtitle=""
         />
       <CombatantGrid combatants={combatants}/>
