@@ -1,6 +1,38 @@
+import { useState } from "react";
 import "./CreateEncounterModal.css";
 
+
 const CreateEncounterModal = ({ onClose }) => {
+  const [name, setName] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:5000/api/encounters", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to create encounter");
+      }
+
+      onClose();
+
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="modal" onClick={onClose}>
       <div
@@ -13,7 +45,10 @@ const CreateEncounterModal = ({ onClose }) => {
 
 
         {/* Form which takes up the bulk of the modal */}
-        <form className="create-encounter-modal__form">
+        <form 
+        className="create-encounter-modal__form"
+        onSubmit = {handleSubmit}
+        >
           
           {/* Encounter Name */}
           <div className="create-encounter-modal__field">
@@ -22,12 +57,14 @@ const CreateEncounterModal = ({ onClose }) => {
             <input
               type="text"
               placeholder="Enter encounter name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
 
           {/* Buttons */}
           <div className="create-encounter-modal__actions">
-            <button type="button">
+            <button type="submit">
               Create
             </button>
 
