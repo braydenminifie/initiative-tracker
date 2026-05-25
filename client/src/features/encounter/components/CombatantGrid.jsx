@@ -63,6 +63,7 @@ const CombatantGrid = ({ combatants = [], setCombatants }) => {
         <HealModal
           combatant={activeModal.combatant}
           onClose={closeModal}
+          onHeal={updateHealth}
         />
       )}
 
