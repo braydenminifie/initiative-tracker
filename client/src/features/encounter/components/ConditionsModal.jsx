@@ -1,4 +1,5 @@
 import "./ConditionsModal.css";
+import piwakawaka from "../assets/piwakawaka.jpg"
 
 const ConditionsModal = ({ combatant, onClose }) => {
   return (
@@ -12,7 +13,7 @@ const ConditionsModal = ({ combatant, onClose }) => {
         {/* Header */}
         <div className="conditions-modal__header">
           <img
-            src={combatant.image}
+            src={piwakawaka}
             alt={combatant.name}
             className="conditions-modal__image"
           />

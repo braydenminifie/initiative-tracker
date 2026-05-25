@@ -1,6 +1,7 @@
 import "./HealModal.css";
 import "./Modal.css"
 import { useState } from "react";
+import piwakawaka from "../assets/piwakawaka.jpg"
 
 const HealModal = ({ combatant, onClose, onHeal }) => {
   /* Handle Heal */
@@ -44,7 +45,7 @@ const HealModal = ({ combatant, onClose, onHeal }) => {
 
         <h1>Heal!</h1>
         <img
-          src={combatant.image}
+          src={piwakawaka}
           alt={combatant.name}
           className="heal-modal__image"
         />

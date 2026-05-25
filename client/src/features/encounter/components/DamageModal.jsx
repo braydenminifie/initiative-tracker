@@ -1,6 +1,7 @@
 import "./DamageModal.css";
 import "./Modal.css";
 import { useState } from "react";
+import piwakawaka from "../assets/piwakawaka.jpg"
 
 const DamageModal = ({ combatant, onClose, onDamage }) => {
   /* Handle Damage */
@@ -46,7 +47,7 @@ const DamageModal = ({ combatant, onClose, onDamage }) => {
         <h1>Damage!</h1>
 
         <img
-          src={combatant.image}
+          src={piwakawaka}
           alt={combatant.name}
           className="damage-modal__image"
         />

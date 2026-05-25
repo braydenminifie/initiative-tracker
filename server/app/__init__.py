@@ -1,5 +1,6 @@
 from flask import Flask
 from .extensions import db, migrate, cors
+from .static_conditions import seed_conditions
 
 def create_app(config_class="app.config.Config"):
     app = Flask(__name__)
@@ -21,5 +22,6 @@ def create_app(config_class="app.config.Config"):
 
     with app.app_context():
         db.create_all()
+        seed_conditions()
 
     return app
