@@ -36,7 +36,8 @@ function Encounter() {
         title={encounter?.name || "Loading..."}
         subtitle=""
         />
-      <CombatantGrid combatants={combatants}/>
+      <CombatantGrid combatants={combatants}
+      setCombatants={setCombatants}/>
 
 
     </>

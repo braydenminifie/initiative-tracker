@@ -1,7 +1,42 @@
 import "./DamageModal.css";
-import "./Modal.css"
+import "./Modal.css";
+import { useState } from "react";
 
-const DamageModal = ({ combatant, onClose }) => {
+const DamageModal = ({ combatant, onClose, onDamage }) => {
+  /* Handle Damage */
+  const [damage, setDamage] = useState("");
+
+  const handleDamage = async () => {
+    const damageAmount = parseInt(damage);
+    const newHealth = Math.max(0, combatant.hp - damageAmount);
+
+     try {
+      const response = await fetch(
+        `http://127.0.0.1:5000/api/combatants/${combatant.id}/health`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            health: newHealth,
+          }),
+        }
+      );
+
+      const updatedCombatant = await response.json();
+      onDamage(updatedCombatant);
+      onClose();
+
+
+    } catch (error) {
+      console.error("Failed to apply damage:", error);
+    }
+  };
+
+
+
+  /* Component */
   return (
     <div className="modal" onClick={onClose}>
       <div
@@ -23,11 +58,18 @@ const DamageModal = ({ combatant, onClose }) => {
           type="number"
           placeholder="Damage amount"
           className="damage-modal__input"
+          value = {damage}
+          onChange={(e) => setDamage(e.target.value)}
         />
 
         {/* Buttons */}
         <div className="damage-modal__actions">
-          <button className="damage-modal__button">Apply</button>
+          <button 
+          className="damage-modal__button"
+          onClick = {handleDamage}
+          >
+            Apply
+          </button>
           <button className="damage-modal__button" onClick={onClose}>
             Close
           </button>
@@ -38,6 +80,6 @@ const DamageModal = ({ combatant, onClose }) => {
       </div>
     </div>
   );
-};
+}
 
 export default DamageModal;

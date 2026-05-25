@@ -11,7 +11,7 @@ import "./CombatantGrid.css";
 
 
 
-const CombatantGrid = ({ combatants = [] }) => {
+const CombatantGrid = ({ combatants = [], setCombatants }) => {
   {/* State for handling modals*/}
   const [activeModal, setActiveModal] = useState();
 
@@ -24,6 +24,25 @@ const CombatantGrid = ({ combatants = [] }) => {
   }
 
 
+  /* Update Health for a Combatant */
+  const updateHealth = (updatedCombatant) => {
+  const updatedCombatants = combatants.map((combatant) => {
+    const isTarget = combatant.id === updatedCombatant.id;
+
+    if (isTarget) {
+      return {
+        ...combatant,
+        hp: updatedCombatant.hp,
+      };
+    }
+
+    return combatant;
+  });
+
+  setCombatants(updatedCombatants);
+};
+
+  /* Returned Component */
   return (
     <>
       <section className="combatant-grid">
@@ -51,6 +70,7 @@ const CombatantGrid = ({ combatants = [] }) => {
         <DamageModal
           combatant={activeModal.combatant}
           onClose={closeModal}
+          onDamage={updateHealth}
         />
       )}
 
