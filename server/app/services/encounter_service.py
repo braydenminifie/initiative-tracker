@@ -146,7 +146,8 @@ def get_encounter_state(encounter_id):
                 {
                     "id": cc.id,
                     "name": cc.condition.name,
-                    "duration": cc.duration_turns
+                    "duration": cc.duration_turns,
+                    "description": cc.condition.description
                 }
                 for cc in combatant_conditions
             ]
