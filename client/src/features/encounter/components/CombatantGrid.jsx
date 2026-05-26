@@ -44,7 +44,11 @@ const CombatantGrid = ({ combatants = [], setCombatants, encounterId }) => {
 
   /* Update combatants list when a new combatant is created */
   const handleCombatantCreated = (newCombatant) => {
-    setCombatants((prev) => [...prev, newCombatant]);
+    setCombatants((prev) =>
+      [...prev, newCombatant].sort(
+        (a, b) => b.initiative - a.initiative
+      )
+    );
   };
 
   /* Returned Component */
