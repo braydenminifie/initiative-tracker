@@ -1,6 +1,53 @@
 import "./CreateCombatantModal.css";
+import { useState } from "react";
 
-const CreateCombatantModal = ({ onClose }) => {
+const CreateCombatantModal = ({ onClose, encounterId, onCombatantCreated }) => {
+  /* Create Combatant Form Submittion*/
+  const [name, setName] = useState("");
+  const [type, setType] = useState("");
+  const [maxHp, setMaxHp] = useState("");
+  const [armourClass, setArmourClass] = useState("");
+  const [initiative, setInitiative] = useState("");
+  const [image, setImage] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:5000/api/combatants", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          encounter_id: encounterId,
+          name: name,
+          type: type,
+          initiative: Number(initiative),
+          max_hp: Number(maxHp),
+          armour_class: Number(armourClass),
+          image: image ? image.name : null, // simple version
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to create combatant");
+      }
+
+      onCombatantCreated?.(data);
+      onClose();
+
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+
+
+  /* Component */
   return (
     <div className="modal" onClick={onClose}>
       <div
@@ -15,13 +62,18 @@ const CreateCombatantModal = ({ onClose }) => {
 
 
         {/* Form which takes up the bulk of the modal */}
-        <form className="create-combatant-modal__form">
+        <form 
+        className="create-combatant-modal__form"
+        onSubmit={handleSubmit}
+        >
           {/* Name */}
           <div className="create-combatant-modal__field">
             <label>Name</label>
             <input
               type="text"
               placeholder="Enter combatant name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
 
@@ -30,7 +82,7 @@ const CreateCombatantModal = ({ onClose }) => {
           <div className="create-combatant-modal__field">
             <label>Type</label>
 
-            <select defaultValue="">
+            <select value={type} onChange={(e) => setType(e.target.value)}>
               <option value="" disabled>
                 Select type
               </option>
@@ -50,6 +102,8 @@ const CreateCombatantModal = ({ onClose }) => {
             <input
               type="number"
               placeholder="Enter max HP"
+              value={maxHp}
+              onChange={(e) => setMaxHp(e.target.value)}
             />
           </div>
 
@@ -62,6 +116,22 @@ const CreateCombatantModal = ({ onClose }) => {
             <input
               type="number"
               placeholder="Enter armour class"
+              value={armourClass}
+              onChange={(e) => setArmourClass(e.target.value)}
+            />
+          </div>
+
+
+
+          {/* Initiative */}
+          <div className="create-combatant-modal__field">
+            <label>Initiative</label>
+
+            <input
+              type="number"
+              placeholder="Enter Initiative"
+              value={initiative}
+              onChange={(e) => setInitiative(e.target.value)}
             />
           </div>
 
@@ -71,14 +141,14 @@ const CreateCombatantModal = ({ onClose }) => {
           <div className="create-combatant-modal__field">
             <label>Combatant Image</label>
 
-            <input type="file" accept="image/*" />
+            <input type="file" accept="image/*"/>
           </div>
 
 
 
           {/* Buttons */}
           <div className="create-combatant-modal__actions">
-            <button type="button">
+            <button type="submit">
               Create
             </button>
 

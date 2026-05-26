@@ -37,7 +37,8 @@ function Encounter() {
         subtitle=""
         />
       <CombatantGrid combatants={combatants}
-      setCombatants={setCombatants}/>
+      setCombatants={setCombatants}
+      encounterId={id}/>
 
 
     </>

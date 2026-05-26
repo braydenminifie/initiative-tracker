@@ -11,7 +11,7 @@ import "./CombatantGrid.css";
 
 
 
-const CombatantGrid = ({ combatants = [], setCombatants }) => {
+const CombatantGrid = ({ combatants = [], setCombatants, encounterId }) => {
   {/* State for handling modals*/}
   const [activeModal, setActiveModal] = useState();
 
@@ -41,6 +41,11 @@ const CombatantGrid = ({ combatants = [], setCombatants }) => {
 
   setCombatants(updatedCombatants);
 };
+
+  /* Update combatants list when a new combatant is created */
+  const handleCombatantCreated = (newCombatant) => {
+    setCombatants((prev) => [...prev, newCombatant]);
+  };
 
   /* Returned Component */
   return (
@@ -85,6 +90,8 @@ const CombatantGrid = ({ combatants = [], setCombatants }) => {
       {activeModal?.type === "combatant" && (
         <CreateCombatantModal
           onClose={closeModal}
+          encounterId={encounterId}
+          onCombatantCreated={handleCombatantCreated}
         />
       )}
 
