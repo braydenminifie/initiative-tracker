@@ -42,12 +42,31 @@ const CombatantGrid = ({ combatants = [], setCombatants, encounterId, currentRou
   setCombatants(updatedCombatants);
 };
 
+
+
   /* Update combatants list when a new combatant is created */
   const handleCombatantCreated = (newCombatant) => {
     setCombatants((prev) =>
       [...prev, newCombatant].sort(
         (a, b) => b.initiative - a.initiative
       )
+    );
+  };
+
+
+
+  /* Update combatant's conditions when condition is applied*/
+  const handleConditionApplied = (combatantId, newCondition) => {
+    console.log("🔥 FUNCTION CALLED", combatantId, newCondition);
+    setCombatants((prev) =>
+      prev.map((c) => {
+        if (c.id !== combatantId) return c;
+
+        return {
+          ...c,
+          conditions: [...(c.conditions || []), newCondition],
+        };
+      })
     );
   };
 
@@ -90,6 +109,7 @@ const CombatantGrid = ({ combatants = [], setCombatants, encounterId, currentRou
           currentRound={currentRound}
           currentTurn={currentTurn}
           onClose={closeModal}
+          onConditionApplied={handleConditionApplied}
         />
       )}
 

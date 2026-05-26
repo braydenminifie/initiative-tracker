@@ -97,8 +97,9 @@ def apply_condition_route(combatant_id):
 
     return jsonify({
         "id": combatant_condition.id,
-        "combatant_id": combatant_condition.combatant_id,
-        "condition_id": combatant_condition.condition_id
+        "name": combatant_condition.condition.name,
+        "description": combatant_condition.condition.description,
+        "duration": combatant_condition.duration_turns,
     }), 201
 
 @combatant_bp.route("/<int:combatant_id>/conditions", methods=["GET"])

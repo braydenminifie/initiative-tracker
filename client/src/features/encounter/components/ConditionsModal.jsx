@@ -3,7 +3,7 @@ import piwakawaka from "../assets/piwakawaka.jpg"
 
 import { useState, useEffect } from "react"
 
-const ConditionsModal = ({ combatant, currentRound, currentTurn, onClose }) => {
+const ConditionsModal = ({ combatant, currentRound, currentTurn, onClose, onConditionApplied }) => {
   const [allConditions, setAllConditions] = useState([]);
   const [selectedConditionId, setSelectedConditionId] = useState("");
   const [duration, setDuration] = useState(1);
@@ -42,11 +42,13 @@ const ConditionsModal = ({ combatant, currentRound, currentTurn, onClose }) => {
       );
 
       const data = await response.json();
+      console.log(data);
 
       if (!response.ok) {
         throw new Error(data.error || "Failed to apply condition");
       }
 
+      onConditionApplied(combatant.id, data);
       onClose();
 
     } catch (err) {
