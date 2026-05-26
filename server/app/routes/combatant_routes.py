@@ -20,7 +20,13 @@ def create_combatant_route():
 
     return jsonify({
         "id": combatant.id,
-        "name": combatant.name
+        "name": combatant.name,
+        "type": combatant.type,
+        "initiative": combatant.initiative,
+        "max_hp": combatant.max_hp,
+        "hp": combatant.current_hp,
+        "armour_class": combatant.armour_class,
+        "image": combatant.image,
     }), 201
 
 
