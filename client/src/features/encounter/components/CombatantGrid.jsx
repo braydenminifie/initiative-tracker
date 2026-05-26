@@ -11,7 +11,7 @@ import "./CombatantGrid.css";
 
 
 
-const CombatantGrid = ({ combatants = [], setCombatants, encounterId }) => {
+const CombatantGrid = ({ combatants = [], setCombatants, encounterId, currentRound, currentTurn }) => {
   {/* State for handling modals*/}
   const [activeModal, setActiveModal] = useState();
 
@@ -87,6 +87,8 @@ const CombatantGrid = ({ combatants = [], setCombatants, encounterId }) => {
       {activeModal?.type === "conditions" && (
         <ConditionsModal
           combatant={activeModal.combatant}
+          currentRound={currentRound}
+          currentTurn={currentTurn}
           onClose={closeModal}
         />
       )}

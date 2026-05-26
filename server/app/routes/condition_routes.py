@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.services.condition_service import create_condition, apply_condition
+from app.services.condition_service import create_condition, apply_condition, get_all_conditions
 
 condition_bp = Blueprint("condition", __name__)
 
@@ -24,3 +24,16 @@ def create_condition_route():
     }), 201
 
 
+@condition_bp.route("/", methods=["GET"])
+def get_all_conditions_route():
+    conditions = get_all_conditions()
+
+    return jsonify([
+        {
+            "id": condition.id,
+            "name": condition.name,
+            "description": condition.description,
+            "is_debuff": condition.is_debuff
+        }
+        for condition in conditions
+    ]), 200

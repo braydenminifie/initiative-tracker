@@ -12,6 +12,8 @@ function Encounter() {
   const [encounter, setEncounter] = useState(null);
   const [combatants, setCombatants] = useState([]);
   const [activeCombatantId, setActiveCombatantId] = useState(null);
+  const [round, setRound] = useState(null);
+  const [turn, setTurn] = useState(null);
 
   const { id } = useParams();
   
@@ -22,6 +24,8 @@ function Encounter() {
         setEncounter(data.encounter);
         setCombatants(data.combatants);
         setActiveCombatantId(data.active_combatant_id);
+        setRound(data.encounter.round);
+        setTurn(data.encounter.turn_index)
       })
       .catch((err) => {
         console.error("Failed to fetch encounter:", err);
@@ -38,7 +42,11 @@ function Encounter() {
         />
       <CombatantGrid combatants={combatants}
       setCombatants={setCombatants}
-      encounterId={id}/>
+      encounterId={id}
+      currentRound={round}
+      currentTurn={turn}
+      
+      />
 
 
     </>

@@ -1,14 +1,67 @@
 import "./ConditionsModal.css";
 import piwakawaka from "../assets/piwakawaka.jpg"
 
-const ConditionsModal = ({ combatant, onClose }) => {
+import { useState, useEffect } from "react"
+
+const ConditionsModal = ({ combatant, currentRound, currentTurn, onClose }) => {
+  const [allConditions, setAllConditions] = useState([]);
+  const [selectedConditionId, setSelectedConditionId] = useState("");
+  const [duration, setDuration] = useState(1);
+
+  {/* Fetch all conditions for the conditions list */}
+  useEffect(() => {
+    fetch("http://localhost:5000/api/conditions")
+      .then((res) => res.json())
+      .then((data) => setAllConditions(data))
+      .catch((err) =>
+        console.error("Failed to fetch conditions:", err)
+      );
+  }, []);
+
+
+
+  {/* Apply the chosen condition */}
+  const handleApplyCondition = async () => {
+    if (!selectedConditionId) return;
+
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/combatants/${combatant.id}/apply-condition`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            condition_id: Number(selectedConditionId),
+            duration: Number(duration),
+            current_round: currentRound,
+            current_turn: currentTurn,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to apply condition");
+      }
+
+      onClose();
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+
+
   return (
     <div className="modal" onClick={onClose}>
       <div
         className="modal__content conditions-modal"
         onClick={(e) => e.stopPropagation()}
       >
-
 
         {/* Header */}
         <div className="conditions-modal__header">
@@ -23,7 +76,33 @@ const ConditionsModal = ({ combatant, onClose }) => {
           </h2>
         </div>
 
+        {/* Apply Condition Section*/}
+        <div className="conditions-modal__apply">
+          <select
+            value={selectedConditionId}
+            onChange={(e) =>
+              setSelectedConditionId(e.target.value)
+            }
+          >
+            <option value="">Select Condition</option>
+            {allConditions.map((condition) => (
+              <option key={condition.id} value={condition.id}>
+                {condition.name}
+              </option>
+            ))}
+          </select>
 
+          <input
+            type="number"
+            min="1"
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
+          />
+
+          <button onClick={handleApplyCondition}>
+            Apply
+          </button>
+        </div>
 
         {/* Conditions List */}
         {/* If combatant has no conditions, shows "No active conditions" instead of a list */}
