@@ -5,9 +5,9 @@ import Button from "../../../components/Button"
 import kereru from "../assets/kereru.jpg"
 import piwakawaka from "../assets/piwakawaka.jpg"
 
-const CombatantCard = ({ combatant, onOpenModal }) => {
+const CombatantCard = ({ combatant, onOpenModal, isCurrentTurn }) => {
   return (
-    <div className="combatant-card">
+    <div className={`combatant-card ${isCurrentTurn ? "combatant-card--active" : ""}`}>
       
       {/*Left: Image*/}
       <div className="combatant-card__image">

@@ -11,7 +11,7 @@ import "./CombatantGrid.css";
 
 
 
-const CombatantGrid = ({ combatants = [], setCombatants, encounterId, currentRound, currentTurn }) => {
+const CombatantGrid = ({ combatants = [], setCombatants, encounterId, encounter, currentRound, currentTurn, handleNextTurn }) => {
   {/* State for handling modals*/}
   const [activeModal, setActiveModal] = useState();
 
@@ -57,7 +57,6 @@ const CombatantGrid = ({ combatants = [], setCombatants, encounterId, currentRou
 
   /* Update combatant's conditions when condition is applied*/
   const handleConditionApplied = (combatantId, newCondition) => {
-    console.log("🔥 FUNCTION CALLED", combatantId, newCondition);
     setCombatants((prev) =>
       prev.map((c) => {
         if (c.id !== combatantId) return c;
@@ -74,10 +73,12 @@ const CombatantGrid = ({ combatants = [], setCombatants, encounterId, currentRou
   return (
     <>
       <section className="combatant-grid">
-        {combatants.map((c) => (
+        {combatants.map((c, index) => (
           <CombatantCard key={c.id} 
           combatant={c} 
-          onOpenModal = {openModal}/>
+          onOpenModal = {openModal}
+          isCurrentTurn = {index === encounter.turn_index}
+          />
         ))}
       </section>
 
@@ -85,6 +86,11 @@ const CombatantGrid = ({ combatants = [], setCombatants, encounterId, currentRou
       onClick = {() => {openModal("combatant", null);}}>
         +
         </Button>
+
+      <Button variant = "next_turn"
+      onClick = {handleNextTurn}>
+        ➜
+      </Button>
 
       {/* Checks for rendering modal */}
       {activeModal?.type === "heal" && (

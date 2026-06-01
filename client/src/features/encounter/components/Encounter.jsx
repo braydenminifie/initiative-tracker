@@ -16,11 +16,42 @@ function Encounter() {
   const [turn, setTurn] = useState(null);
 
   const { id } = useParams();
+
+  /* Next turn button functionality */
+  async function nextTurn(encounterId) {
+    const response = await fetch(
+      `http://localhost:5000/api/encounters/${encounterId}/next-turn`,
+      {
+        method: "POST",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to advance turn");
+    }
+
+    return response.json();
+  }
+
+  const handleNextTurn = async () => {
+  try {
+    const updatedEncounter = await nextTurn(encounter.id);
+
+    setEncounter((prev) => ({
+      ...prev,
+      round: updatedEncounter.round,
+      current_turn_index: updatedEncounter.current_turn_index,
+    }));
+  } catch (error) {
+    console.error(error);
+  }
+};
   
-   useEffect(() => {
+  useEffect(() => {
     fetch(`http://localhost:5000/api/encounters/${id}/state`)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setEncounter(data.encounter);
         setCombatants(data.combatants);
         setActiveCombatantId(data.active_combatant_id);
@@ -43,8 +74,10 @@ function Encounter() {
       <CombatantGrid combatants={combatants}
       setCombatants={setCombatants}
       encounterId={id}
+      encounter={encounter}
       currentRound={round}
       currentTurn={turn}
+      handleNextTurn={handleNextTurn}
       
       />
 
