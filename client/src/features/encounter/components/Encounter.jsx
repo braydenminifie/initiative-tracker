@@ -40,7 +40,7 @@ function Encounter() {
     setEncounter((prev) => ({
       ...prev,
       round: updatedEncounter.round,
-      current_turn_index: updatedEncounter.current_turn_index,
+      turn_index: updatedEncounter.current_turn_index,
     }));
   } catch (error) {
     console.error(error);
