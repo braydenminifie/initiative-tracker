@@ -7,6 +7,7 @@ const ConditionsModal = ({ combatant, encounterId, currentRound, currentTurn, on
   const [allConditions, setAllConditions] = useState([]);
   const [selectedConditionId, setSelectedConditionId] = useState("");
   const [duration, setDuration] = useState(1);
+  const API_BASE = "http://localhost:5000";
 
   {/* Fetch all conditions for the conditions list */}
   useEffect(() => {
@@ -67,8 +68,7 @@ const ConditionsModal = ({ combatant, encounterId, currentRound, currentTurn, on
 
         {/* Header */}
         <div className="conditions-modal__header">
-          <img
-            src={piwakawaka}
+          <img src={`${API_BASE}${combatant.image}`}
             alt={combatant.name}
             className="conditions-modal__image"
           />

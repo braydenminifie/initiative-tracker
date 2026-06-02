@@ -4,6 +4,8 @@ import { useState } from "react";
 import piwakawaka from "../assets/piwakawaka.jpg"
 
 const DamageModal = ({ combatant, onClose, onDamage }) => {
+  const API_BASE = "http://localhost:5000";
+
   /* Handle Damage */
   const [damage, setDamage] = useState("");
 
@@ -46,8 +48,7 @@ const DamageModal = ({ combatant, onClose, onDamage }) => {
       >
         <h1>Damage!</h1>
 
-        <img
-          src={piwakawaka}
+        <img src={`${API_BASE}${combatant.image}`}
           alt={combatant.name}
           className="damage-modal__image"
         />

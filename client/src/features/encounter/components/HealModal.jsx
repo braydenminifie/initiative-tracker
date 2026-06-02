@@ -6,6 +6,7 @@ import piwakawaka from "../assets/piwakawaka.jpg"
 const HealModal = ({ combatant, onClose, onHeal }) => {
   /* Handle Heal */
   const [heal, setHeal] = useState("");
+  const API_BASE = "http://localhost:5000";
   
     const handleHeal = async () => {
       const healAmount = parseInt(heal);
@@ -44,8 +45,7 @@ const HealModal = ({ combatant, onClose, onHeal }) => {
       >
 
         <h1>Heal!</h1>
-        <img
-          src={piwakawaka}
+        <img src={`${API_BASE}${combatant.image}`}
           alt={combatant.name}
           className="heal-modal__image"
         />
