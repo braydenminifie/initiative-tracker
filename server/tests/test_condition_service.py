@@ -31,6 +31,7 @@ def test_apply_condition(app):
         combat_condition = condition_service.apply_condition(
             combatant_id = combatant.id,
             condition_id = condition.id,
+            encounter_id = encounter.id,
             current_round = 2,
             current_turn = 3,
             duration_turns = 10 #TODO: Implement getTurnsPerRound function
@@ -45,6 +46,7 @@ def test_apply_condition(app):
         reapplied_combat_condition = condition_service.apply_condition(
             combatant_id = combatant.id,
             condition_id = condition.id,
+            encounter_id = encounter.id,
             current_round = 2,
             current_turn = 3,
             duration_turns = 15 
@@ -72,6 +74,7 @@ def test_update_combatant_condition_duration(app):
         combat_condition = condition_service.apply_condition(
             combatant_id = combatant.id,
             condition_id = condition.id,
+            encounter_id = encounter.id,
             current_round = 2,
             current_turn = 3,
             duration_turns = 10 
@@ -111,6 +114,7 @@ def test_decrement_condition_durations(app):
         combat_condition1 = condition_service.apply_condition(
             combatant_id = combatant.id,
             condition_id = condition.id,
+            encounter_id = encounter.id,
             current_round = 2,
             current_turn = 1,
             duration_turns = 2 
@@ -119,6 +123,7 @@ def test_decrement_condition_durations(app):
         combat_condition2 = condition_service.apply_condition(
             combatant_id = combatant2.id,
             condition_id = condition2.id,
+            encounter_id = encounter.id,
             current_round = 2,
             current_turn = 1,
             duration_turns = 1
