@@ -90,6 +90,7 @@ def apply_condition_route(combatant_id):
     combatant_condition = apply_condition(
         combatant_id=combatant_id,
         condition_id=data["condition_id"],
+        encounter_id=data["encounter_id"],
         current_round=data["current_round"],
         current_turn=data["current_turn"],
         duration_turns=data["duration"]

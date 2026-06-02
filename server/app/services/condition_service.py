@@ -2,6 +2,7 @@ from ..models.combatant_condition import CombatantCondition
 from ..models.condition import Condition
 from ..extensions import db
 from .engine_utils import get_sorted_combatants
+from .encounter_service import get_encounter
 
 #Services for handling conditions
 
@@ -57,17 +58,22 @@ def delete_condition(id):
 def apply_condition(
     combatant_id,
     condition_id,
+    encounter_id,
     current_round,
     current_turn,
-    duration_turns=None
+    duration_turns=None,
+    
 ):
     #If the condition already exists on the combatant, refresh the condition timing
     existing = get_combatant_condition(combatant_id, condition_id)
+    encounter = get_encounter(encounter_id)
+    print(encounter)
 
     if existing:
         existing.duration_turns = duration_turns
         existing.applied_round = current_round
         existing.applied_turn = current_turn
+        existing.applied_total_turn - encounter.total_turns_elapsed
 
         db.session.commit()
         return existing
@@ -80,6 +86,7 @@ def apply_condition(
             duration_turns=duration_turns,
             applied_round=current_round,
             applied_turn=current_turn,
+            applied_total_turn= encounter.total_turns_elapsed,
             is_active=True
         )
 
@@ -122,7 +129,8 @@ def decrement_condition_durations(encounter):
     conditions = CombatantCondition.query.filter_by(is_active=True).all()
 
     for cc in conditions:
-        turns_passed = encounter.total_turns_elapsed - cc.applied_turn + 1
+        turns_passed = encounter.total_turns_elapsed - cc.applied_total_turn
+
         if turns_passed >= cc.duration_turns:
             cc.is_active = False
 

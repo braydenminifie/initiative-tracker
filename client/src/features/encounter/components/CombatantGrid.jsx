@@ -112,6 +112,7 @@ const CombatantGrid = ({ combatants = [], setCombatants, encounterId, encounter,
       {activeModal?.type === "conditions" && (
         <ConditionsModal
           combatant={activeModal.combatant}
+          encounterId={encounterId}
           currentRound={currentRound}
           currentTurn={currentTurn}
           onClose={closeModal}

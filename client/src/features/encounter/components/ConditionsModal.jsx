@@ -3,7 +3,7 @@ import piwakawaka from "../assets/piwakawaka.jpg"
 
 import { useState, useEffect } from "react"
 
-const ConditionsModal = ({ combatant, currentRound, currentTurn, onClose, onConditionApplied }) => {
+const ConditionsModal = ({ combatant, encounterId, currentRound, currentTurn, onClose, onConditionApplied }) => {
   const [allConditions, setAllConditions] = useState([]);
   const [selectedConditionId, setSelectedConditionId] = useState("");
   const [duration, setDuration] = useState(1);
@@ -34,6 +34,7 @@ const ConditionsModal = ({ combatant, currentRound, currentTurn, onClose, onCond
           },
           body: JSON.stringify({
             condition_id: Number(selectedConditionId),
+            encounter_id: Number(encounterId),
             duration: Number(duration),
             current_round: currentRound,
             current_turn: currentTurn,
