@@ -1,21 +1,36 @@
 from flask import Blueprint, jsonify, request
+from werkzeug.utils import secure_filename
 from ..services.encounter_service import create_combatant, get_combatant, remove_combatant, set_combatant_health
 from ..services.condition_service import apply_condition, get_combatant_conditions_by_combatant_id
+import os
+import uuid
 
 combatant_bp = Blueprint("combatants", __name__)
 
 @combatant_bp.route("", methods=["POST"])
 def create_combatant_route():
-    data = request.get_json()
+    image = request.files.get("image")
+    image_url = None
+
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    upload_folder = os.path.join(base_dir, "static", "uploads")
+    os.makedirs(upload_folder, exist_ok=True)
+
+    if image:
+        filename = secure_filename(image.filename)
+        unique_filename = f"{uuid.uuid4()}_{filename}"
+        save_path = os.path.join(upload_folder, unique_filename)
+        image.save(save_path)
+        image_url = f"/static/uploads/{unique_filename}"
 
     combatant = create_combatant(
-        encounter_id=data["encounter_id"],
-        name=data["name"],
-        type=data["type"],
-        initiative=data["initiative"],
-        max_hp = data["max_hp"],
-        armour_class = data["armour_class"],
-        image=data["image"],
+        encounter_id = request.form.get("encounter_id"),
+        name = request.form.get("name"),
+        type = request.form.get("type"),
+        initiative = request.form.get("initiative"),
+        max_hp = request.form.get("max_hp"),
+        armour_class = request.form.get("armour_class"),
+        image = image_url
     )
 
     return jsonify({

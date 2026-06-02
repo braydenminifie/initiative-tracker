@@ -5,13 +5,16 @@ import Button from "../../../components/Button"
 import kereru from "../assets/kereru.jpg"
 import piwakawaka from "../assets/piwakawaka.jpg"
 
+const API_BASE = "http://localhost:5000";
+
 const CombatantCard = ({ combatant, onOpenModal, isCurrentTurn }) => {
   return (
     <div className={`combatant-card ${isCurrentTurn ? "combatant-card--active" : ""}`}>
       
       {/*Left: Image*/}
       <div className="combatant-card__image">
-        <img src={piwakawaka} alt={combatant.name} />
+        <img src={`${API_BASE}${combatant.image}`}
+        alt={combatant.name}/>
       </div>
 
       {/*Right: Content*/}

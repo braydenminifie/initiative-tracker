@@ -1,6 +1,7 @@
 from flask import Flask
 from .extensions import db, migrate, cors
 from .static_conditions import seed_conditions
+import os
 
 def create_app(config_class="app.config.Config"):
     app = Flask(__name__)

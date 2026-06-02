@@ -8,26 +8,28 @@ const CreateCombatantModal = ({ onClose, encounterId, onCombatantCreated }) => {
   const [maxHp, setMaxHp] = useState("");
   const [armourClass, setArmourClass] = useState("");
   const [initiative, setInitiative] = useState("");
-  const [image, setImage] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      const formData = new FormData();
+
+      formData.append("encounter_id", encounterId);
+      formData.append("name", name);
+      formData.append("type", type);
+      formData.append("initiative", Number(initiative));
+      formData.append("max_hp", Number(maxHp));
+      formData.append("armour_class", Number(armourClass));
+
+      if (imageFile) {
+        formData.append("image", imageFile);
+      }
+
       const response = await fetch("http://localhost:5000/api/combatants", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          encounter_id: encounterId,
-          name: name,
-          type: type,
-          initiative: Number(initiative),
-          max_hp: Number(maxHp),
-          armour_class: Number(armourClass),
-          image: image ? image.name : null, // simple version
-        }),
+        body: formData, 
       });
 
       const data = await response.json();
@@ -39,12 +41,10 @@ const CreateCombatantModal = ({ onClose, encounterId, onCombatantCreated }) => {
       onCombatantCreated?.(data);
       onClose();
 
-
     } catch (err) {
       console.error(err);
     }
   };
-
 
 
   /* Component */
@@ -140,8 +140,10 @@ const CreateCombatantModal = ({ onClose, encounterId, onCombatantCreated }) => {
           {/* Image Upload */}
           <div className="create-combatant-modal__field">
             <label>Combatant Image</label>
-
-            <input type="file" accept="image/*"/>
+            <input type="file" 
+            accept="image/*"
+            onChange={(e) => setImageFile(e.target.files[0])}
+            />
           </div>
 
 
