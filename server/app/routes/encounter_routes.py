@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from ..models.encounter import Encounter
 from ..extensions import db
-from ..services.encounter_service import create_encounter, get_encounter, get_encounter_state, get_all_encounters
+from ..services.encounter_service import create_encounter, remove_encounter, get_encounter, get_encounter_state, get_all_encounters
 from ..services.combat_engine import next_turn
 
 encounter_bp = Blueprint("encounters", __name__)
@@ -39,6 +39,17 @@ def create_encounter_route():
         "name": encounter.name,
         "round": encounter.current_round
     }), 201
+
+
+
+@encounter_bp.route("/<int:encounter_id>", methods=["DELETE"])
+def delete_encounter_route(encounter_id):
+    remove_encounter(encounter_id)
+
+    return jsonify({
+        "message": "Encounter deleted",
+        "id": encounter_id
+    }), 200
 
 
 

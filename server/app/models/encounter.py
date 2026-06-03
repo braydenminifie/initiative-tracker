@@ -10,4 +10,4 @@ class Encounter(db.Model):
     is_active = db.Column(db.Boolean, default=True)
     total_turns_elapsed = db.Column(db.Integer)
     
-    combatants = db.relationship("Combatant", backref="encounter")
+    combatants = db.relationship("Combatant", backref="encounter", cascade="all, delete-orphan")
