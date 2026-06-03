@@ -17,4 +17,4 @@ class Combatant(db.Model):
     is_alive = db.Column(db.Boolean, default=True)
     image = db.Column(db.String())
 
-    conditions = db.relationship("CombatantCondition", backref="combatant")
+    conditions = db.relationship("CombatantCondition", backref="combatant", cascade="all, delete-orphan")

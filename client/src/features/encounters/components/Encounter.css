@@ -1,6 +1,5 @@
 .encounter-card {
   background-color: #233d2f;
-  color: #f3f3f3;
 
   border-radius: 12px;
   padding: 18px;
@@ -9,6 +8,19 @@
               background-color 0.2s ease;
 
   cursor: pointer;
+  position: relative;
+}
+
+h2 {
+  margin: 0;
+  padding: 0;
+  color: #f3f3f3;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  color: #d3d3d3;
 }
 
 .encounter-card:hover {
@@ -37,4 +49,10 @@
 
   opacity: 0.75;
   font-size: 0.9rem;
+}
+
+.encounter-link {
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
 }

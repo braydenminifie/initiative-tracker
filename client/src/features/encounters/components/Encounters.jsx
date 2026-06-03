@@ -40,7 +40,7 @@ function Encounters() {
         subtitle="Navigate your encounters here"
         />
         
-        <EncountersGrid encounters = {encounters}></EncountersGrid>
+        <EncountersGrid encounters = {encounters} setEncounters = {setEncounters}></EncountersGrid>
         <Button variant = "new_encounter" 
             onClick={() => setIsCreateModalOpen(true)}>
                 +
