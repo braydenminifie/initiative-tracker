@@ -3,7 +3,7 @@ import piwakawaka from "../assets/piwakawaka.jpg"
 
 import { useState, useEffect } from "react"
 
-const ConditionsModal = ({ combatant, encounterId, currentRound, currentTurn, onClose, onConditionApplied }) => {
+const ConditionsModal = ({ combatant, encounterId, currentRound, currentTurn, encounter, onClose, onConditionApplied }) => {
   const [allConditions, setAllConditions] = useState([]);
   const [selectedConditionId, setSelectedConditionId] = useState("");
   const [duration, setDuration] = useState(1);
@@ -120,7 +120,7 @@ const ConditionsModal = ({ combatant, encounterId, currentRound, currentTurn, on
                     {condition.name}
                   </span>
                   <span className="conditions-modal__item-duration">
-                    {condition.duration} turns
+                    {condition.duration - (encounter.total_turns_elapsed) + condition.applied_total_turn} turns
                   </span>
                 </div>
 

@@ -2,6 +2,7 @@ from ..models.combatant import Combatant
 from ..extensions import db
 from .condition_service import decrement_condition_durations
 from .engine_utils import get_sorted_combatants
+from .encounter_service import get_encounter_state
 
 #Services for handling the core gameplay loop
 
@@ -36,11 +37,8 @@ def next_turn(encounter):
 
     #Decrement all conditions by 1 turn
     decrement_condition_durations(encounter)
-    return {
-        "id": encounter.id,
-        "round": encounter.current_round,
-        "current_turn_index": encounter.current_turn_index
-    }
+
+    return get_encounter_state(encounter.id)
 
 
 

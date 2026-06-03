@@ -36,12 +36,15 @@ function Encounter() {
   const handleNextTurn = async () => {
   try {
     const updatedEncounter = await nextTurn(encounter.id);
-
     setEncounter((prev) => ({
       ...prev,
-      round: updatedEncounter.round,
-      turn_index: updatedEncounter.current_turn_index,
+      round: updatedEncounter.encounter.round,
+      turn_index: updatedEncounter.encounter.turn_index,
+      total_turns_elapsed: updatedEncounter.encounter.total_turns_elapsed,
     }));
+
+    setCombatants(updatedEncounter.combatants);
+
   } catch (error) {
     console.error(error);
   }

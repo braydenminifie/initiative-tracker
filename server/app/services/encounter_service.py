@@ -147,7 +147,8 @@ def get_encounter_state(encounter_id):
                     "id": cc.id,
                     "name": cc.condition.name,
                     "duration": cc.duration_turns,
-                    "description": cc.condition.description
+                    "description": cc.condition.description,
+                    "applied_total_turn": cc.applied_total_turn
                 }
                 for cc in combatant_conditions
             ]
@@ -159,7 +160,8 @@ def get_encounter_state(encounter_id):
             "name": encounter.name,
             "round": encounter.current_round,
             "turn_index": encounter.current_turn_index,
-            "is_active": encounter.is_active
+            "is_active": encounter.is_active,
+            "total_turns_elapsed": encounter.total_turns_elapsed
         },
         "active_combatant_id": active.id if active else None,
         "combatants": combatant_list

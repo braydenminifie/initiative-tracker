@@ -75,7 +75,7 @@ const CombatantGrid = ({ combatants = [], setCombatants, encounterId, encounter,
       <div className = "encounter-info">
         <p>Round: {encounter?.round}</p>
         <p>Turn: {encounter?.turn_index + 1}</p>
-        <p>Combatant: {combatants?.[encounter.turn_index]?.name}</p>
+        <p>Combatant: {combatants?.[encounter?.turn_index]?.name}</p>
       </div>
       <section className="combatant-grid">
         {combatants.map((c, index) => (
@@ -120,6 +120,7 @@ const CombatantGrid = ({ combatants = [], setCombatants, encounterId, encounter,
           encounterId={encounterId}
           currentRound={currentRound}
           currentTurn={currentTurn}
+          encounter = {encounter}
           onClose={closeModal}
           onConditionApplied={handleConditionApplied}
         />
