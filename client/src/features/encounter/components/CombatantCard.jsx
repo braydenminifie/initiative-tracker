@@ -7,9 +7,14 @@ import piwakawaka from "../assets/piwakawaka.jpg"
 
 const API_BASE = "http://localhost:5000";
 
-const CombatantCard = ({ combatant, onOpenModal, isCurrentTurn }) => {
+const CombatantCard = ({ combatant, onOpenModal, isCurrentTurn, isDamaged, isHealed }) => {
   return (
-    <div className={`combatant-card ${isCurrentTurn ? "combatant-card--active" : ""}`}>
+    <div
+      className={`combatant-card
+        ${isCurrentTurn ? "combatant-card--active" : ""}
+        ${isDamaged ? "combatant-card--damage" : ""}
+        ${isHealed ? "combatant-card--heal" : ""}
+      `}>
       
       {/*Left: Image*/}
       <div className="combatant-card__image">

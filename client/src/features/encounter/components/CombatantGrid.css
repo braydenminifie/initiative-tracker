@@ -20,3 +20,44 @@
   font-size: 1.2em;
   color: #f3f3f3;
 }
+
+
+
+/* Animation */
+.combatant-card--damage {
+  animation: flash-red 1s ease;
+}
+
+@keyframes flash-red {
+  0% {
+    background-color: #780b0b;
+    transform: scale(1);
+  }
+  30% {
+    background-color: #780b0b;
+    transform: scale(1.005);
+  }
+  100% {
+    background-color: #2B2C37;
+    transform: scale(1);
+  }
+}
+
+.combatant-card--heal {
+  animation: flash-green 1s ease;
+}
+
+@keyframes flash-green {
+  0% {
+    background-color: #094622;
+    transform: scale(1);
+  }
+  30% {
+    background-color: #094622;
+    transform: scale(1.005);
+  }
+  100% {
+    background-color: #2B2C37;
+    transform: scale(1);
+  }
+}

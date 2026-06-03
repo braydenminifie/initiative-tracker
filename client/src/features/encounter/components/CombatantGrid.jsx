@@ -23,6 +23,37 @@ const CombatantGrid = ({ combatants = [], setCombatants, encounterId, encounter,
     setActiveModal(null);
   }
 
+  /* Flashing animations when health is updated */
+  const [flashMap, setFlashMap] = useState({});
+  const [healFlashMap, setHealFlashMap] = useState({});
+
+  const triggerDamageFlash = (combatantId) => {
+    setFlashMap((prev) => ({
+      ...prev,
+      [combatantId]: true,
+    }));
+
+    setTimeout(() => {
+      setFlashMap((prev) => ({
+        ...prev,
+        [combatantId]: false,
+      }));
+    }, 800); // flash duration
+  };
+
+  const triggerHealFlash = (combatantId) => {
+    setHealFlashMap((prev) => ({
+      ...prev,
+      [combatantId]: true,
+    }));
+
+    setTimeout(() => {
+      setHealFlashMap((prev) => ({
+        ...prev,
+        [combatantId]: false,
+      }));
+    }, 800);
+  };
 
   /* Update Health for a Combatant */
   const updateHealth = (updatedCombatant) => {
@@ -30,6 +61,14 @@ const CombatantGrid = ({ combatants = [], setCombatants, encounterId, encounter,
     const isTarget = combatant.id === updatedCombatant.id;
 
     if (isTarget) {
+      const oldHealth = combatant.hp;
+      const newHealth = updatedCombatant.hp;
+      
+      if (oldHealth > newHealth) {
+        triggerDamageFlash(updatedCombatant.id);
+      } else {
+        triggerHealFlash(updatedCombatant.id);
+      }
       return {
         ...combatant,
         hp: updatedCombatant.hp,
@@ -40,6 +79,7 @@ const CombatantGrid = ({ combatants = [], setCombatants, encounterId, encounter,
   });
 
   setCombatants(updatedCombatants);
+  
 };
 
 
@@ -83,6 +123,8 @@ const CombatantGrid = ({ combatants = [], setCombatants, encounterId, encounter,
           combatant={c} 
           onOpenModal = {openModal}
           isCurrentTurn = {index === encounter.turn_index}
+          isDamaged = {flashMap[c.id]}
+          isHealed = {healFlashMap[c.id]}
           />
         ))}
       </section>
