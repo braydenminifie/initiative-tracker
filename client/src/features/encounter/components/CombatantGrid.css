@@ -12,8 +12,11 @@
   background-color: #2B2C37;
   gap: 30px;
   padding-left: 30px;
+  padding-bottom: 12px;
+  padding-top: 12px;
 }
 
 .encounter-info p {
   font-size: 1.2em;
+  color: #f3f3f3;
 }
