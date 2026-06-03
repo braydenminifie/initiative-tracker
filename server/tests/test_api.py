@@ -47,18 +47,20 @@ def test_create_combatant(client):
 
 
     #Create combatant
-    response = client.post("/api/combatants", json={
+    response = client.post("/api/combatants", data={
         "encounter_id": encounter_id,
         "name": "Goblin",
         "type": "enemy",
         "initiative": 15,
         "max_hp": 20,
         "armour_class": 14,
-        "image": "link"
-    })
+        }
+    )
     assert response.status_code == 201
 
     data = response.get_json()
+    print("Testing create combatant API...")
+    print(data)
     assert data["name"] == "Goblin"
     assert "id" in data
 
@@ -73,15 +75,15 @@ def test_get_combatant(client):
 
 
     #Create combatant
-    combatant = client.post("/api/combatants", json={
+    combatant = client.post("/api/combatants", data={
         "encounter_id": encounter_id,
         "name": "Goblin",
         "type": "enemy",
         "initiative": 15,
         "max_hp": 20,
         "armour_class": 14,
-        "image": "link"
-    })
+        }
+    )
     data = combatant.get_json()
     combatant_id = data["id"]
 
@@ -105,15 +107,15 @@ def test_next_turn(client):
     encounter_id = encounter["id"]
 
     #Create a combatant in the encounter
-    response = client.post("/api/combatants", json={
+    response = client.post("/api/combatants", data={
         "encounter_id": encounter_id,
-        "name": "Gandalf",
-        "type": "Player",
+        "name": "Goblin",
+        "type": "enemy",
         "initiative": 15,
-        "max_hp": 200,
+        "max_hp": 20,
         "armour_class": 14,
-        "image": "link"
-    })
+        }
+    )
     assert response.status_code == 201
 
     response = client.post(f"/api/encounters/{encounter_id}/next-turn")
@@ -122,7 +124,7 @@ def test_next_turn(client):
     data = response.get_json()
     print(data)
     assert data is not None
-    assert "round" in data or "current_turn_index" in data
+    assert "active_combatant_id" in data 
 
 
 
@@ -162,15 +164,16 @@ def test_update_combatant_health(client):
     }).get_json()
 
     #Create combatant
-    combatant = client.post("/api/combatants", json={
+    combatant = client.post("/api/combatants", data={
         "encounter_id": encounter["id"],
         "name": "Goblin",
-        "type": "Enemy",
-        "initiative": 10,
+        "type": "enemy",
+        "initiative": 15,
         "max_hp": 20,
-        "armour_class": 12,
-        "image": "link"
-    }).get_json()
+        "armour_class": 14,
+        }
+    ).get_json()
+    
 
     combatant_id = combatant["id"]
 
@@ -295,7 +298,7 @@ def test_get_encounter_state(client):
     encounter_id = encounter["id"]
 
     #Create combatants
-    c1 = client.post("/api/combatants", json={
+    c1 = client.post("/api/combatants", data={
         "encounter_id": encounter_id,
          "name": "Hero",
         "type": "Player",
@@ -305,7 +308,7 @@ def test_get_encounter_state(client):
         "image": "link"
     }).get_json()
 
-    c2 = client.post("/api/combatants", json={
+    c2 = client.post("/api/combatants", data={
         "encounter_id": encounter_id,
         "name": "Goblin",
         "type": "Enemy",
