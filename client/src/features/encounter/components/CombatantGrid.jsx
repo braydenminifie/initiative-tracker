@@ -72,6 +72,11 @@ const CombatantGrid = ({ combatants = [], setCombatants, encounterId, encounter,
   /* Returned Component */
   return (
     <>
+      <div className = "encounter-info">
+        <p>Round: {encounter?.round}</p>
+        <p>Turn: {encounter?.turn_index + 1}</p>
+        <p>Combatant: {combatants?.[encounter.turn_index]?.name}</p>
+      </div>
       <section className="combatant-grid">
         {combatants.map((c, index) => (
           <CombatantCard key={c.id} 

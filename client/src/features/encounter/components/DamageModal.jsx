@@ -46,7 +46,7 @@ const DamageModal = ({ combatant, onClose, onDamage }) => {
         className="modal__content damage-modal"
         onClick={(e) => e.stopPropagation()}
       >
-        <h1>Damage!</h1>
+        <h1>Damage</h1>
 
         <img src={`${API_BASE}${combatant.image}`}
           alt={combatant.name}

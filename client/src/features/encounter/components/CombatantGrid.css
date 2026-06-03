@@ -6,3 +6,14 @@
   width: 100%;
   box-sizing: border-box;
 }
+
+.encounter-info {
+  display: flex;
+  background-color: #2B2C37;
+  gap: 30px;
+  padding-left: 30px;
+}
+
+.encounter-info p {
+  font-size: 1.2em;
+}
